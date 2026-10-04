@@ -1,6 +1,11 @@
 name: Apply GO GROCER full-store theme
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/apply-go-grocer-full-store.yml
   workflow_dispatch:
 
 permissions:
