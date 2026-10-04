@@ -1,7 +1,10 @@
 /*
  * ------------------------------------------------------------
- * GO GROCER homepage template.
- * Generated from the original working Horizon 4.2.0 theme.
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
 {
@@ -11,11 +14,43 @@
       "blocks": {
         "hero": {
           "type": "hero",
-          "settings": {}
+          "settings": {
+            "eyebrow": "HIGH PROTEIN. LOW EFFORT.",
+            "heading": "Your everyday grocery for eating well.",
+            "text": "<p>Quality ingredients, protein-packed essentials and better choices, all in one place.</p>",
+            "button_label": "SHOP GROCERIES →",
+            "button_link": "",
+            "button2_label": "SHOP HIGH PROTEIN",
+            "button2_link": "",
+            "image": "shopify://shop_images/ad5aebd5-213d-4e5d-80f3-0919a567eab1.png",
+            "bg": "#f7f5f0",
+            "text_color": "#171717",
+            "wash": 90,
+            "height": 560,
+            "height_m": 560
+          }
         },
         "categories": {
           "type": "categories",
-          "settings": {}
+          "settings": {
+            "eyebrow": "SHOP GO GROCER",
+            "heading": "SHOP BY CATEGORY",
+            "text": "",
+            "cat1_title": "Protein",
+            "cat1_collection": "",
+            "cat2_title": "Dairy",
+            "cat2_collection": "",
+            "cat3_title": "Breakfast",
+            "cat3_collection": "",
+            "cat4_title": "Snacks",
+            "cat4_collection": "",
+            "cat5_title": "Coffee",
+            "cat5_collection": "",
+            "cat6_title": "Ready Meals",
+            "cat6_collection": "",
+            "bg": "#f7f5f0",
+            "text_color": "#171717"
+          }
         },
         "editorial1": {
           "type": "editorial",
@@ -24,19 +59,44 @@
             "heading": "GOOD FOOD. STRONGER DAYS.",
             "text": "<p>Protein forward groceries, useful staples and better everyday choices in one easy shop.</p>",
             "button_label": "SHOP GO GROCER →",
+            "button_link": "",
             "reverse": false,
-            "bg": "#EAE2D4"
+            "bg": "#eae2d4",
+            "text_color": "#171717"
           }
         },
         "protein": {
           "type": "protein_day",
-          "settings": {}
+          "settings": {
+            "eyebrow": "PROTEIN MADE EASY.",
+            "heading": "BUILD A HIGH PROTEIN DAY",
+            "text": "<p>Pick a meal. Choose your protein. Stock your fridge.</p>",
+            "meal1_title": "BREAKFAST",
+            "meal1_protein": "30G PROTEIN",
+            "meal2_title": "LUNCH",
+            "meal2_protein": "35G PROTEIN",
+            "meal3_title": "SNACK",
+            "meal3_protein": "20G PROTEIN",
+            "meal4_title": "DINNER",
+            "meal4_protein": "35G PROTEIN",
+            "summary": "ONE DAY. 120G PROTEIN.",
+            "button_label": "BUILD YOUR PROTEIN DAY →",
+            "button_link": "",
+            "bg": "#d9ccb8",
+            "text_color": "#171717"
+          }
         },
         "featured1": {
           "type": "featured",
           "settings": {
+            "eyebrow": "GO GROCER PICKS",
             "heading": "EVERYDAY PROTEIN PICKS",
-            "eyebrow": "GO GROCER PICKS"
+            "text": "",
+            "collection": "",
+            "limit": 4,
+            "view_label": "VIEW ALL →",
+            "bg": "#f7f5f0",
+            "text_color": "#171717"
           }
         },
         "editorial2": {
@@ -46,34 +106,78 @@
             "heading": "MORE PROTEIN. LESS OVERTHINKING.",
             "text": "<p>Stock your fridge with simple protein forward staples for breakfast, lunch, snacks and dinner.</p>",
             "button_label": "SHOP HIGH PROTEIN →",
+            "button_link": "",
             "reverse": true,
-            "bg": "#D9CCB8"
+            "bg": "#d9ccb8",
+            "text_color": "#171717"
           }
         },
         "cards": {
           "type": "cards",
-          "settings": {}
+          "settings": {
+            "eyebrow": "SHOP SMARTER",
+            "heading": "MAKE YOUR GROCERY RUN EASIER",
+            "text": "<p>Shop the way you actually eat, with fewer clicks and easier choices.</p>",
+            "card1_title": "SHOP BY MEAL",
+            "card1_text": "Breakfast, lunch, snacks and dinner in fewer clicks.",
+            "card1_link": "",
+            "card2_title": "HIGH PROTEIN",
+            "card2_text": "Everyday staples that make protein easier.",
+            "card2_link": "",
+            "card3_title": "READY WHEN YOU ARE",
+            "card3_text": "Convenient picks and ready meals for busy days.",
+            "card3_link": "",
+            "bg": "#eae2d4",
+            "text_color": "#171717"
+          }
         },
         "featured2": {
           "type": "featured",
           "settings": {
-            "heading": "NEW IN THE FRIDGE",
             "eyebrow": "JUST IN",
+            "heading": "NEW IN THE FRIDGE",
             "text": "<p>Fresh additions and new everyday favorites worth making room for.</p>",
-            "view_label": "SEE WHAT’S NEW →"
+            "collection": "",
+            "limit": 4,
+            "view_label": "SEE WHAT’S NEW →",
+            "bg": "#f7f5f0",
+            "text_color": "#171717"
           }
         },
         "promo": {
           "type": "promo",
-          "settings": {}
+          "settings": {
+            "eyebrow": "MADE FOR REAL DAYS",
+            "heading": "GOOD FOOD FOR BUSY PEOPLE.",
+            "text": "<p>Easy meals, useful staples and protein-forward picks for days when time is short.</p>",
+            "button_label": "SHOP READY MEALS →",
+            "button_link": "",
+            "bg": "#526653",
+            "text_color": "#ffffff"
+          }
         },
         "blog": {
           "type": "blog",
-          "settings": {}
+          "settings": {
+            "eyebrow": "GO GROCER RECIPES",
+            "heading": "WHAT’S FOR TODAY?",
+            "text": "<p>Simple meal ideas for making the groceries in your fridge work harder.</p>",
+            "blog": "",
+            "limit": 3,
+            "bg": "#f7f5f0",
+            "text_color": "#171717"
+          }
         },
         "newsletter": {
           "type": "newsletter",
-          "settings": {}
+          "settings": {
+            "eyebrow": "GO GROCER NOTES",
+            "heading": "GOOD FOOD, STRAIGHT TO YOUR INBOX.",
+            "text": "<p>New arrivals, easy meal ideas and useful GO GROCER updates.</p>",
+            "button_label": "SIGN ME UP",
+            "bg": "#a9b5a1",
+            "text_color": "#171717"
+          }
         }
       },
       "block_order": [
