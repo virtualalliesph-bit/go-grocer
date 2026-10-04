@@ -467,10 +467,78 @@
         "padding-block-start": 48,
         "padding-block-end": 56
       }
+    },
+    "go_product_support_MwVy7H": {
+      "type": "go-product-support",
+      "blocks": {
+        "benefit_cVV87N": {
+          "type": "benefit",
+          "settings": {
+            "kicker": "PROTEIN MADE EASY",
+            "title": "Useful everyday protein.",
+            "text": "Simple staples and convenient options for breakfast, lunch, snacks and dinner."
+          }
+        },
+        "benefit_m4UxJd": {
+          "type": "benefit",
+          "settings": {
+            "kicker": "GOOD FOOD, REAL LIFE",
+            "title": "Chosen for everyday living.",
+            "text": "Premium enough to feel good, practical enough to keep stocked in your fridge."
+          }
+        },
+        "benefit_PJV76q": {
+          "type": "benefit",
+          "settings": {
+            "kicker": "LESS OVERTHINKING",
+            "title": "A smarter grocery run.",
+            "text": "Clear choices, useful categories and food that works with busy routines."
+          }
+        },
+        "faq_GFATfP": {
+          "type": "faq",
+          "settings": {
+            "question": "How does GO GROCER choose products?",
+            "answer": "<p>We focus on practical everyday food, good quality and products that make protein-forward grocery shopping easier.</p>"
+          }
+        },
+        "faq_ipkFDY": {
+          "type": "faq",
+          "settings": {
+            "question": "Where can I find nutrition information?",
+            "answer": "<p>Nutrition varies by product. Check the nutrition section on the product page when available and always refer to the product packaging for the most current information.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "benefit_cVV87N",
+        "benefit_m4UxJd",
+        "benefit_PJV76q",
+        "faq_GFATfP",
+        "faq_ipkFDY"
+      ],
+      "name": "GO Product support",
+      "settings": {
+        "eyebrow": "GO GROCER STANDARD",
+        "heading": "GOOD FOOD. EASIER CHOICES.",
+        "body": "<p>Everyday groceries selected for quality, convenience and protein-forward living. Less overthinking, more useful food for your fridge.</p>",
+        "show_collection_links": true,
+        "facts_heading": "NUTRITION AT A GLANCE.",
+        "facts_note": "Nutrition information is product specific. Always check the product packaging for the most current details.",
+        "faq_heading": "A FEW USEFUL THINGS.",
+        "background": "#EAE2D4",
+        "card_background": "#F7F5F0",
+        "accent": "#526653",
+        "padding_top": 64,
+        "padding_bottom": 72,
+        "padding_top_mobile": 44,
+        "padding_bottom_mobile": 52
+      }
     }
   },
   "order": [
     "main",
-    "recommendations"
+    "recommendations",
+    "go_product_support_MwVy7H"
   ]
 }
