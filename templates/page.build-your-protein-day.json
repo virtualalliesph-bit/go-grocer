@@ -11,7 +11,117 @@
   "sections": {
     "main": {
       "type": "go-protein-day-page",
-      "settings": {}
+      "blocks": {
+        "meal_breakfast": {
+          "type": "meal",
+          "settings": {
+            "title": "BREAKFAST",
+            "protein": "30G PROTEIN",
+            "text": "Start with an easy breakfast you can actually repeat."
+          }
+        },
+        "meal_lunch": {
+          "type": "meal",
+          "settings": {
+            "title": "LUNCH",
+            "protein": "35G PROTEIN",
+            "text": "Build lunch around a familiar protein and simple sides."
+          }
+        },
+        "meal_snack": {
+          "type": "meal",
+          "settings": {
+            "title": "SNACK",
+            "protein": "20G PROTEIN",
+            "text": "Keep an easy protein option ready for the space between meals."
+          }
+        },
+        "meal_dinner": {
+          "type": "meal",
+          "settings": {
+            "title": "DINNER",
+            "protein": "35G PROTEIN",
+            "text": "Finish with a straightforward protein-forward dinner."
+          }
+        },
+        "shop_breakfast": {
+          "type": "shop",
+          "settings": {
+            "label": "BREAKFAST"
+          }
+        },
+        "shop_protein": {
+          "type": "shop",
+          "settings": {
+            "label": "PROTEIN"
+          }
+        },
+        "shop_snacks": {
+          "type": "shop",
+          "settings": {
+            "label": "SNACKS"
+          }
+        },
+        "shop_ready": {
+          "type": "shop",
+          "settings": {
+            "label": "READY MEALS"
+          }
+        },
+        "tip_swap": {
+          "type": "tip",
+          "settings": {
+            "title": "SWAP THE PROTEIN",
+            "text": "Chicken today, salmon tomorrow, yogurt when you need something fast."
+          }
+        },
+        "tip_like": {
+          "type": "tip",
+          "settings": {
+            "title": "USE WHAT YOU LIKE",
+            "text": "The easiest routine is the one built around food you already enjoy."
+          }
+        },
+        "tip_backup": {
+          "type": "tip",
+          "settings": {
+            "title": "KEEP A BACKUP",
+            "text": "Ready meals and simple snacks help when the plan changes."
+          }
+        },
+        "faq_macro": {
+          "type": "faq",
+          "settings": {
+            "question": "Is this a macro calculator?",
+            "answer": "<p>No. This page is a simple grocery and meal-building framework, not a personalized macro or medical nutrition calculator.</p>"
+          }
+        },
+        "faq_120": {
+          "type": "faq",
+          "settings": {
+            "question": "Do I need to hit exactly 120g?",
+            "answer": "<p>No. The numbers are examples to show how protein can be spread across a day. Individual needs vary.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "meal_breakfast",
+        "meal_lunch",
+        "meal_snack",
+        "meal_dinner",
+        "shop_breakfast",
+        "shop_protein",
+        "shop_snacks",
+        "shop_ready",
+        "tip_swap",
+        "tip_like",
+        "tip_backup",
+        "faq_macro",
+        "faq_120"
+      ],
+      "settings": {
+        "summary_text": "<p>For example: 30g at breakfast, 35g at lunch, 20g from a snack and 35g at dinner. Your day does not need to look exactly like this. Use it as a simple grocery framework, not a nutrition prescription.</p>"
+      }
     }
   },
   "order": ["main"]
