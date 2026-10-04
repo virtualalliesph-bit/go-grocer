@@ -11,7 +11,74 @@
   "sections": {
     "main": {
       "type": "go-recipes-page",
-      "settings": {}
+      "blocks": {
+        "meal_breakfast": {
+          "type": "meal_link",
+          "settings": {
+            "label": "BREAKFAST",
+            "link": ""
+          }
+        },
+        "meal_lunch": {
+          "type": "meal_link",
+          "settings": {
+            "label": "LUNCH",
+            "link": ""
+          }
+        },
+        "meal_snacks": {
+          "type": "meal_link",
+          "settings": {
+            "label": "SNACKS",
+            "link": ""
+          }
+        },
+        "meal_dinner": {
+          "type": "meal_link",
+          "settings": {
+            "label": "DINNER",
+            "link": ""
+          }
+        },
+        "goal_protein": {
+          "type": "goal",
+          "settings": {
+            "title": "MORE PROTEIN",
+            "text": "Protein-forward meals for everyday routines.",
+            "link": ""
+          }
+        },
+        "goal_quick": {
+          "type": "goal",
+          "settings": {
+            "title": "QUICK & EASY",
+            "text": "Simple meals for busy days.",
+            "link": ""
+          }
+        },
+        "goal_prep": {
+          "type": "goal",
+          "settings": {
+            "title": "MEAL PREP",
+            "text": "Ideas you can make ahead and keep useful.",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "meal_breakfast",
+        "meal_lunch",
+        "meal_snacks",
+        "meal_dinner",
+        "goal_protein",
+        "goal_quick",
+        "goal_prep"
+      ],
+      "settings": {
+        "articles_per_page": "9",
+        "shop_collection": "",
+        "protein_day_url": ""
+      }
     }
   },
   "order": ["main"]
