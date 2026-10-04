@@ -180,6 +180,7 @@
         },
         "newsletter": {
           "type": "newsletter",
+          "disabled": true,
           "settings": {
             "eyebrow": "GO GROCER NOTES",
             "heading": "GOOD FOOD, STRAIGHT TO YOUR INBOX.",
