@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "go-contact-page",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "go-protein-day-page",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

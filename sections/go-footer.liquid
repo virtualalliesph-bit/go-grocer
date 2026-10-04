@@ -1,0 +1,106 @@
+<footer class="go-footer go-section--dark" style="padding:{{ section.settings.pad_top }}px 0 {{ section.settings.pad_bottom }}px;">
+  <div class="go-shell">
+    <div class="go-footer__grid">
+      <div class="go-footer__brand">
+        {% if section.settings.logo != blank %}
+          {{ section.settings.logo | image_url: width: 420 | image_tag: loading: 'lazy', widths: '140,220,320,420', alt: shop.name }}
+        {% else %}
+          <div class="go-footer__wordmark">GO GROCER</div>
+        {% endif %}
+        {% if section.settings.tagline != blank %}<div class="go-footer__tagline">{{ section.settings.tagline }}</div>{% endif %}
+        {% if section.settings.text != blank %}<div class="go-rte">{{ section.settings.text }}</div>{% endif %}
+      </div>
+
+      <div>
+        <div class="go-footer__title">SHOP</div>
+        {% if section.settings.shop_menu != blank %}
+          <ul>{% for link in section.settings.shop_menu.links %}<li><a href="{{ link.url }}">{{ link.title }}</a></li>{% endfor %}</ul>
+        {% else %}
+          <ul><li>Protein</li><li>Dairy</li><li>Breakfast</li><li>Snacks</li><li>Coffee</li><li>Ready Meals</li></ul>
+        {% endif %}
+      </div>
+
+      <div>
+        <div class="go-footer__title">GO GROCER</div>
+        {% if section.settings.brand_menu != blank %}
+          <ul>{% for link in section.settings.brand_menu.links %}<li><a href="{{ link.url }}">{{ link.title }}</a></li>{% endfor %}</ul>
+        {% else %}
+          <ul><li>Build Your Protein Day</li><li>Recipes</li><li>About</li></ul>
+        {% endif %}
+      </div>
+
+      <div>
+        <div class="go-footer__title">INFORMATION</div>
+        {% if section.settings.info_menu != blank %}
+          <ul>{% for link in section.settings.info_menu.links %}<li><a href="{{ link.url }}">{{ link.title }}</a></li>{% endfor %}</ul>
+        {% else %}
+          <ul><li>FAQ</li><li>Contact</li><li>Shipping</li><li>Returns</li><li>Privacy</li><li>Terms</li></ul>
+        {% endif %}
+      </div>
+    </div>
+
+    {% if section.settings.show_newsletter %}
+      <div class="go-footer__newsletter">
+        <div>
+          <div class="go-kicker">STAY IN THE LOOP</div>
+          <h2 class="go-h3">{{ section.settings.newsletter_heading }}</h2>
+        </div>
+        {% form 'customer', class: 'go-footer__form' %}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <label class="visually-hidden" for="GoFooterEmail-{{ section.id }}">Email</label>
+          <input id="GoFooterEmail-{{ section.id }}" type="email" name="contact[email]" autocomplete="email" placeholder="Email address" required>
+          <button type="submit">SIGN UP</button>
+          {% if form.posted_successfully? %}<p>Thanks for signing up.</p>{% endif %}
+          {{ form.errors | default_errors }}
+        {% endform %}
+      </div>
+    {% endif %}
+
+    <div class="go-footer__bottom">
+      <span>© {{ 'now' | date: '%Y' }} {{ shop.name }}</span>
+      {% if section.settings.show_payments and shop.enabled_payment_types.size > 0 %}
+        <div class="go-footer__payments">{% for type in shop.enabled_payment_types %}{{ type | payment_type_svg_tag }}{% endfor %}</div>
+      {% endif %}
+      <div class="go-footer__policies">{% for policy in shop.policies %}{% if policy != blank %}<a href="{{ policy.url }}">{{ policy.title }}</a>{% endif %}{% endfor %}</div>
+    </div>
+  </div>
+</footer>
+<style>
+#shopify-section-{{ section.id }} .go-footer{background:{{ section.settings.bg }};color:{{ section.settings.text_color }};}
+#shopify-section-{{ section.id }} .go-footer__grid{display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:42px;padding-bottom:44px;}
+#shopify-section-{{ section.id }} .go-footer__wordmark{font-size:30px;font-weight:800;letter-spacing:-.04em;margin-bottom:14px;}
+#shopify-section-{{ section.id }} .go-footer__tagline{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;margin-bottom:16px;color:{{ section.settings.accent }};}
+#shopify-section-{{ section.id }} .go-footer__title{font-size:11px;font-weight:700;letter-spacing:.14em;margin-bottom:16px;color:{{ section.settings.accent }};}
+#shopify-section-{{ section.id }} ul{list-style:none;padding:0;margin:0;display:grid;gap:10px;font-size:14px;}
+#shopify-section-{{ section.id }} .go-footer__brand .go-rte{max-width:360px;opacity:.82;}
+#shopify-section-{{ section.id }} .go-footer__newsletter{padding:30px 0;border-top:1px solid rgba(247,245,240,.18);border-bottom:1px solid rgba(247,245,240,.18);display:flex;justify-content:space-between;align-items:center;gap:30px;}
+#shopify-section-{{ section.id }} .go-footer__form{display:grid;grid-template-columns:minmax(220px,420px) auto;gap:8px;align-items:start;}
+#shopify-section-{{ section.id }} .go-footer__form input{min-height:46px;padding:10px 14px;background:transparent;color:inherit;border:1px solid rgba(247,245,240,.45);}
+#shopify-section-{{ section.id }} .go-footer__form button{min-height:46px;padding:10px 18px;background:{{ section.settings.accent }};color:#171717;border:0;border-radius:4px;font-weight:700;}
+#shopify-section-{{ section.id }} .go-footer__bottom{padding-top:24px;display:flex;gap:20px;align-items:center;justify-content:space-between;flex-wrap:wrap;font-size:11px;opacity:.82;}
+#shopify-section-{{ section.id }} .go-footer__payments{display:flex;gap:6px;align-items:center;flex-wrap:wrap;} #shopify-section-{{ section.id }} .go-footer__payments svg{height:22px;width:auto;}
+#shopify-section-{{ section.id }} .go-footer__policies{display:flex;gap:14px;flex-wrap:wrap;}
+@media(max-width:749px){#shopify-section-{{ section.id }} .go-footer__grid{grid-template-columns:1fr 1fr;gap:28px 20px;}#shopify-section-{{ section.id }} .go-footer__brand{grid-column:1/-1;}#shopify-section-{{ section.id }} .go-footer__newsletter{align-items:flex-start;flex-direction:column;}#shopify-section-{{ section.id }} .go-footer__form{grid-template-columns:1fr;width:100%;}}
+</style>
+{% schema %}
+{
+  "name":"GO Footer",
+  "settings":[
+    {"type":"image_picker","id":"logo","label":"Logo"},
+    {"type":"text","id":"tagline","label":"Tagline","default":"PROTEIN MADE EASY."},
+    {"type":"richtext","id":"text","label":"Brand text","default":"<p>High protein groceries for everyday living. Good food, useful staples and easier choices for your fridge.</p>"},
+    {"type":"link_list","id":"shop_menu","label":"Shop menu"},
+    {"type":"link_list","id":"brand_menu","label":"GO GROCER menu"},
+    {"type":"link_list","id":"info_menu","label":"Information menu"},
+    {"type":"checkbox","id":"show_newsletter","label":"Show newsletter","default":true},
+    {"type":"text","id":"newsletter_heading","label":"Newsletter heading","default":"GOOD FOOD, STRAIGHT TO YOUR INBOX."},
+    {"type":"checkbox","id":"show_payments","label":"Show payment icons","default":true},
+    {"type":"color","id":"bg","label":"Background","default":"#171717"},
+    {"type":"color","id":"text_color","label":"Text","default":"#F7F5F0"},
+    {"type":"color","id":"accent","label":"Accent","default":"#A9B5A1"},
+    {"type":"range","id":"pad_top","label":"Top padding","min":32,"max":120,"step":4,"unit":"px","default":64},
+    {"type":"range","id":"pad_bottom","label":"Bottom padding","min":32,"max":120,"step":4,"unit":"px","default":48}
+  ],
+  "presets":[{"name":"GO Footer"}]
+}
+{% endschema %}

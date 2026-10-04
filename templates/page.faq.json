@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "go-faq-page",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

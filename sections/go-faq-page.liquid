@@ -1,0 +1,37 @@
+<section class="go-faq-page">
+  <div class="go-section go-section--cream"><div class="go-reading"><div class="go-kicker">FAQ</div><h1 class="go-display">GOOD QUESTIONS.<br>STRAIGHT ANSWERS.</h1><div class="go-copy"><p>Everything you need to know about shopping GO GROCER.</p></div></div></div>
+  <div class="go-section"><div class="go-reading"><div class="go-faq-page__nav">{% assign seen = '' %}{% for block in section.blocks %}{% if block.type == 'category' %}<a href="#faq-{{ block.id }}">{{ block.settings.title }}</a>{% endif %}{% endfor %}</div>
+    {% for block in section.blocks %}
+      {% if block.type == 'category' %}<h2 id="faq-{{ block.id }}" class="go-faq-page__category" {{ block.shopify_attributes }}>{{ block.settings.title }}</h2>
+      {% elsif block.type == 'faq' %}<div class="go-accordion"><details{% if section.settings.open_first and forloop.first %} open{% endif %} {{ block.shopify_attributes }}><summary>{{ block.settings.question }} <span>+</span></summary><div class="go-rte">{{ block.settings.answer }}{% if block.settings.link != blank and block.settings.link_label != blank %}<p><a href="{{ block.settings.link }}">{{ block.settings.link_label }}</a></p>{% endif %}</div></details></div>{% endif %}
+    {% endfor %}
+  </div></div>
+</section>
+<style>#shopify-section-{{ section.id }} .go-faq-page__nav{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:46px;}#shopify-section-{{ section.id }} .go-faq-page__nav a{padding:9px 12px;border:1px solid var(--go-line);border-radius:999px;color:inherit;text-decoration:none;font-size:11px;font-weight:700;}#shopify-section-{{ section.id }} .go-faq-page__category{font-size:30px;margin:54px 0 10px;letter-spacing:-.03em;}</style>
+{% schema %}
+{
+  "name":"GO FAQ page",
+  "settings":[{"type":"checkbox","id":"open_first","label":"Open first FAQ","default":false}],
+  "blocks":[
+    {"type":"category","name":"Category heading","settings":[{"type":"text","id":"title","label":"Title"}]},
+    {"type":"faq","name":"FAQ","settings":[{"type":"text","id":"question","label":"Question"},{"type":"richtext","id":"answer","label":"Answer"},{"type":"url","id":"link","label":"Optional link"},{"type":"text","id":"link_label","label":"Optional link label"}]}
+  ],
+  "presets":[{"name":"GO FAQ page","blocks":[
+    {"type":"category","settings":{"title":"ORDERING"}},
+    {"type":"faq","settings":{"question":"How do I place an order?","answer":"<p>Add the groceries you want to your cart, review your order and complete checkout using the available payment and delivery options.</p>"}},
+    {"type":"faq","settings":{"question":"Can I change or cancel an order?","answer":"<p>Contact us as soon as possible with your order number. We will confirm what can still be changed based on the order’s current status.</p>"}},
+    {"type":"category","settings":{"title":"PRODUCTS & NUTRITION"}},
+    {"type":"faq","settings":{"question":"Where can I find ingredients and nutrition information?","answer":"<p>Product-specific ingredients and nutrition details are shown on the relevant product page when supplied for that item.</p>"}},
+    {"type":"faq","settings":{"question":"Are protein amounts the same for every product?","answer":"<p>No. Protein amounts vary by product and serving size. Check the individual product information for the most relevant details.</p>"}},
+    {"type":"category","settings":{"title":"DELIVERY"}},
+    {"type":"faq","settings":{"question":"Where do you deliver?","answer":"<p>Available delivery options depend on your location. Enter your delivery details at checkout to see the options currently available to your address.</p>"}},
+    {"type":"faq","settings":{"question":"When will my order arrive?","answer":"<p>Available delivery estimates are shown during checkout. Timing can vary based on location, order contents and the delivery option selected.</p>"}},
+    {"type":"category","settings":{"title":"PAYMENTS"}},
+    {"type":"faq","settings":{"question":"What payment methods do you accept?","answer":"<p>The payment methods currently available to your order are displayed securely at checkout.</p>"}},
+    {"type":"category","settings":{"title":"STORAGE & HANDLING"}},
+    {"type":"faq","settings":{"question":"How should I store my groceries?","answer":"<p>Follow the storage instructions shown on the product packaging or product page. Refrigerated and frozen items should be stored appropriately after delivery.</p>"}},
+    {"type":"category","settings":{"title":"RETURNS & SUPPORT"}},
+    {"type":"faq","settings":{"question":"What if there is a problem with my order?","answer":"<p>Contact GO GROCER support with your order number and a clear description of the issue so the team can review the order and advise on the next step.</p>"}}
+  ]}]
+}
+{% endschema %}

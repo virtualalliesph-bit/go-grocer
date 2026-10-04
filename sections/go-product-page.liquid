@@ -1,0 +1,86 @@
+{% liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign short_desc = product.metafields.custom.short_description.value
+%}
+<section class="go-product" data-go-product-section="{{ section.id }}" style="--go-accent:{{ section.settings.accent }};">
+  <div class="go-shell go-product__breadcrumbs"><a href="{{ routes.root_url }}">Home</a> / {% if product.collections.first %}<a href="{{ product.collections.first.url }}">{{ product.collections.first.title }}</a> / {% endif %}<span>{{ product.title }}</span></div>
+  <div class="go-shell go-product__main">
+    <div class="go-product__gallery">
+      {% if product.media.size > 0 %}{% for media in product.media %}<div class="go-product__media"{% if forloop.index > section.settings.gallery_limit %} hidden{% endif %}>{% case media.media_type %}{% when 'image' %}{{ media | image_url: width: 1800 | image_tag: loading: forloop.first | default: 'lazy', widths: '600,900,1200,1800', sizes: '(min-width: 990px) 54vw, 100vw', alt: media.alt | default: product.title }}{% else %}{{ media | media_tag }}{% endcase %}</div>{% endfor %}{% endif %}
+    </div>
+
+    <div class="go-product__info">
+      {% if section.settings.show_vendor and product.vendor != blank %}<div class="go-kicker">{{ product.vendor }}</div>{% endif %}
+      <h1 class="go-product__title">{{ product.title }}</h1>
+      {% if product.metafields.custom.protein_per_serving != blank %}<div class="go-product__protein">{{ product.metafields.custom.protein_per_serving.value }} <span>PER SERVING</span></div>{% endif %}
+      <div class="go-product__price" data-go-price>{{ current_variant.price | money }}{% if current_variant.compare_at_price > current_variant.price %} <s>{{ current_variant.compare_at_price | money }}</s>{% endif %}</div>
+      {% if short_desc != blank %}<div class="go-copy">{{ short_desc }}</div>{% elsif product.description != blank %}<div class="go-copy">{{ product.description | strip_html | truncatewords: 32 }}</div>{% endif %}
+
+      {% form 'product', product, id: 'GoProductForm-' | append: section.id, class: 'go-product__form' %}
+        <input type="hidden" name="id" value="{{ current_variant.id }}" data-go-variant-id>
+        {% unless product.has_only_default_variant %}
+          <div class="go-product__options">
+            {% for option in product.options_with_values %}
+              <fieldset data-go-option-index="{{ forloop.index0 }}"><legend>{{ option.name }}</legend><div class="go-product__pills">{% for value in option.values %}<button type="button" class="go-option-pill{% if value == option.selected_value %} is-active{% endif %}" data-go-option-value="{{ value | escape }}">{{ value }}</button>{% endfor %}</div></fieldset>
+            {% endfor %}
+          </div>
+        {% endunless %}
+        <div class="go-product__buyrow">
+          <label><span class="visually-hidden">Quantity</span><input class="go-product__qty" type="number" name="quantity" min="1" value="1"></label>
+          <button class="go-product__atc" type="submit" name="add" data-go-atc {% unless current_variant.available %}disabled{% endunless %}>{% if current_variant.available %}ADD TO CART — <span data-go-atc-price>{{ current_variant.price | money }}</span>{% else %}SOLD OUT{% endif %}</button>
+        </div>
+        {% if section.settings.show_dynamic_checkout %}<div class="go-product__dynamic">{{ form | payment_button }}</div>{% endif %}
+      {% endform %}
+
+      <div class="go-product__facts">
+        {% if product.metafields.custom.protein_per_serving != blank %}<div><span>PROTEIN</span><strong>{{ product.metafields.custom.protein_per_serving.value }}</strong></div>{% endif %}
+        {% if product.metafields.custom.serving_size != blank %}<div><span>SERVING SIZE</span><strong>{{ product.metafields.custom.serving_size.value }}</strong></div>{% endif %}
+        {% if product.metafields.custom.preparation != blank %}<div><span>PREPARATION</span><strong>{{ product.metafields.custom.preparation.value }}</strong></div>{% endif %}
+        {% if product.metafields.custom.storage != blank %}<div><span>STORAGE</span><strong>{{ product.metafields.custom.storage.value }}</strong></div>{% endif %}
+      </div>
+
+      <div class="go-accordion">
+        {% if product.description != blank %}<details><summary>Product Details <span>+</span></summary><div class="go-rte">{{ product.description }}</div></details>{% endif %}
+        {% if product.metafields.custom.nutrition != blank %}<details><summary>Nutrition <span>+</span></summary><div class="go-rte">{{ product.metafields.custom.nutrition | metafield_tag }}</div></details>{% endif %}
+        {% if product.metafields.custom.ingredients != blank %}<details><summary>Ingredients <span>+</span></summary><div class="go-rte">{{ product.metafields.custom.ingredients | metafield_tag }}</div></details>{% endif %}
+        {% if product.metafields.custom.storage_preparation != blank %}<details><summary>Storage &amp; Preparation <span>+</span></summary><div class="go-rte">{{ product.metafields.custom.storage_preparation | metafield_tag }}</div></details>{% endif %}
+        {% if section.settings.delivery_text != blank %}<details><summary>Delivery <span>+</span></summary><div class="go-rte">{{ section.settings.delivery_text }}</div></details>{% endif %}
+      </div>
+    </div>
+  </div>
+
+  {% if section.blocks.size > 0 %}
+    <div class="go-section go-section--cream"><div class="go-shell"><div class="go-kicker">PAIR IT WITH</div><h2 class="go-h2">GOOD TOGETHER.</h2><div class="go-pair-grid">{% for block in section.blocks %}{% assign p = block.settings.product %}{% if p != blank %}<a class="go-pair-card" href="{{ p.url }}" {{ block.shopify_attributes }}>{% if p.featured_image %}{{ p.featured_image | image_url: width: 720 | image_tag: loading: 'lazy', widths: '300,480,720', alt: p.title }}{% endif %}<strong>{{ p.title }}</strong><span>{{ p.price | money }}</span></a>{% endif %}{% endfor %}</div></div></div>
+  {% endif %}
+
+  {% if section.settings.story_heading != blank or section.settings.story_text != blank or section.settings.story_image != blank %}<div class="go-section"><div class="go-shell go-product__story">{% if section.settings.story_image != blank %}<div class="go-media">{{ section.settings.story_image | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '600,900,1200,1400' }}</div>{% endif %}<div><div class="go-kicker">PRODUCT STORY</div>{% if section.settings.story_heading != blank %}<h2 class="go-h2">{{ section.settings.story_heading }}</h2>{% endif %}{% if section.settings.story_text != blank %}<div class="go-copy go-rte">{{ section.settings.story_text }}</div>{% endif %}</div></div></div>{% endif %}
+
+  <div class="go-product__sticky" data-go-sticky><div><strong>{{ product.title }}</strong><span data-go-sticky-price>{{ current_variant.price | money }}</span></div><button type="button" data-go-sticky-button>ADD TO CART</button></div>
+  <script type="application/json" data-go-variants>{{ product.variants | json }}</script>
+</section>
+<script>
+(()=>{const root=document.querySelector('[data-go-product-section="{{ section.id }}"]');if(!root)return;const variants=JSON.parse(root.querySelector('[data-go-variants]').textContent);const hidden=root.querySelector('[data-go-variant-id]');const atc=root.querySelector('[data-go-atc]');const atcPrice=root.querySelector('[data-go-atc-price]');const price=root.querySelector('[data-go-price]');const stickyPrice=root.querySelector('[data-go-sticky-price]');const money={{ shop.money_format | json }};function fmt(c){return money.replace(/\{\{\s*amount[^}]*\}\}/,(c/100).toFixed(2)).replace(/\.00\b/,'');}function selected(){return [...root.querySelectorAll('[data-go-option-index]')].map(f=>f.querySelector('.go-option-pill.is-active')?.dataset.goOptionValue);}function sync(){if(!hidden)return;let vals=selected();let v=variants.find(x=>x.options.every((o,i)=>o===vals[i]));if(!v)return;hidden.value=v.id;const label=v.available?'ADD TO CART — '+fmt(v.price):'SOLD OUT';atc.disabled=!v.available;atc.innerHTML=label;price.innerHTML=fmt(v.price)+(v.compare_at_price&&v.compare_at_price>v.price?' <s>'+fmt(v.compare_at_price)+'</s>':'');if(stickyPrice)stickyPrice.textContent=fmt(v.price);history.replaceState({},'',location.pathname+'?variant='+v.id);}root.querySelectorAll('.go-option-pill').forEach(b=>b.addEventListener('click',()=>{const f=b.closest('fieldset');f.querySelectorAll('.go-option-pill').forEach(x=>x.classList.remove('is-active'));b.classList.add('is-active');sync();}));const stickyBtn=root.querySelector('[data-go-sticky-button]');if(stickyBtn)stickyBtn.addEventListener('click',()=>atc?.click());})();
+</script>
+<style>
+#shopify-section-{{ section.id }} .go-product__breadcrumbs{padding:18px 0;font-size:11px;opacity:.65;}#shopify-section-{{ section.id }} .go-product__breadcrumbs a{color:inherit;text-decoration:none;}#shopify-section-{{ section.id }} .go-product__main{display:grid;grid-template-columns:1.15fr .85fr;gap:54px;padding-bottom:72px;}#shopify-section-{{ section.id }} .go-product__gallery{display:grid;grid-template-columns:1fr 1fr;gap:10px;}#shopify-section-{{ section.id }} .go-product__media{background:#fff;aspect-ratio:4/5;overflow:hidden;}#shopify-section-{{ section.id }} .go-product__media:first-child{grid-column:1/-1;aspect-ratio:4/3;}#shopify-section-{{ section.id }} .go-product__media img,#shopify-section-{{ section.id }} .go-product__media video{width:100%;height:100%;object-fit:cover;}#shopify-section-{{ section.id }} .go-product__info{position:sticky;top:100px;align-self:start;}#shopify-section-{{ section.id }} .go-product__title{font-size:clamp(34px,4vw,58px);line-height:.98;letter-spacing:-.045em;margin:7px 0 14px;}#shopify-section-{{ section.id }} .go-product__protein{display:inline-flex;gap:8px;align-items:baseline;font-size:24px;font-weight:800;color:var(--go-accent);margin-bottom:12px;}#shopify-section-{{ section.id }} .go-product__protein span{font-size:9px;letter-spacing:.12em;}#shopify-section-{{ section.id }} .go-product__price{font-size:20px;font-weight:700;margin:6px 0 18px;}#shopify-section-{{ section.id }} .go-product__price s{opacity:.4;font-weight:400;}#shopify-section-{{ section.id }} .go-product__options fieldset{border:0;padding:0;margin:22px 0;}#shopify-section-{{ section.id }} .go-product__options legend{font-size:12px;font-weight:700;margin-bottom:9px;}#shopify-section-{{ section.id }} .go-product__pills{display:flex;flex-wrap:wrap;gap:8px;}#shopify-section-{{ section.id }} .go-option-pill{min-height:38px;padding:8px 13px;background:transparent;border:1px solid var(--go-line);border-radius:4px;}#shopify-section-{{ section.id }} .go-option-pill.is-active{background:var(--go-black);color:#fff;border-color:var(--go-black);}#shopify-section-{{ section.id }} .go-product__buyrow{display:grid;grid-template-columns:82px 1fr;gap:8px;margin:22px 0 8px;}#shopify-section-{{ section.id }} .go-product__qty{width:100%;min-height:48px;text-align:center;border:1px solid var(--go-line);border-radius:4px;}#shopify-section-{{ section.id }} .go-product__atc{min-height:48px;background:var(--go-accent);color:#fff;border:0;border-radius:4px;font-weight:700;}#shopify-section-{{ section.id }} .go-product__atc:disabled{background:#aaa;}#shopify-section-{{ section.id }} .go-product__dynamic{margin-bottom:24px;}#shopify-section-{{ section.id }} .go-product__facts{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--go-line);margin:28px 0;}#shopify-section-{{ section.id }} .go-product__facts div{padding:14px 8px 14px 0;border-bottom:1px solid var(--go-line);}#shopify-section-{{ section.id }} .go-product__facts span{display:block;font-size:9px;letter-spacing:.12em;opacity:.6;}#shopify-section-{{ section.id }} .go-product__facts strong{display:block;margin-top:4px;font-size:13px;}#shopify-section-{{ section.id }} .go-pair-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:28px;}#shopify-section-{{ section.id }} .go-pair-card{text-decoration:none;color:inherit;}#shopify-section-{{ section.id }} .go-pair-card img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block;margin-bottom:10px;}#shopify-section-{{ section.id }} .go-pair-card strong,#shopify-section-{{ section.id }} .go-pair-card span{display:block;}#shopify-section-{{ section.id }} .go-product__story{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;}#shopify-section-{{ section.id }} .go-product__story .go-media{aspect-ratio:4/3;}#shopify-section-{{ section.id }} .go-product__sticky{display:none;}
+@media(max-width:989px){#shopify-section-{{ section.id }} .go-product__main{grid-template-columns:1fr;gap:30px;}#shopify-section-{{ section.id }} .go-product__info{position:static;}#shopify-section-{{ section.id }} .go-pair-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:749px){#shopify-section-{{ section.id }} .go-product__gallery{grid-template-columns:1fr;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;}#shopify-section-{{ section.id }} .go-product__media,#shopify-section-{{ section.id }} .go-product__media:first-child{min-width:88%;aspect-ratio:4/5;scroll-snap-align:start;}#shopify-section-{{ section.id }} .go-product__story{grid-template-columns:1fr;}#shopify-section-{{ section.id }} .go-product__sticky{position:fixed;display:flex;bottom:0;left:0;right:0;z-index:30;background:var(--go-white);border-top:1px solid var(--go-line);padding:10px 16px;align-items:center;justify-content:space-between;gap:12px;}#shopify-section-{{ section.id }} .go-product__sticky div{min-width:0;}#shopify-section-{{ section.id }} .go-product__sticky strong,#shopify-section-{{ section.id }} .go-product__sticky span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}#shopify-section-{{ section.id }} .go-product__sticky strong{font-size:12px;}#shopify-section-{{ section.id }} .go-product__sticky span{font-size:11px;}#shopify-section-{{ section.id }} .go-product__sticky button{min-height:42px;background:var(--go-accent);color:#fff;border:0;border-radius:4px;padding:8px 16px;font-weight:700;}}
+</style>
+{% schema %}
+{
+  "name":"GO Product page",
+  "settings":[
+    {"type":"checkbox","id":"show_vendor","label":"Show vendor","default":true},
+    {"type":"checkbox","id":"show_dynamic_checkout","label":"Show Buy It Now","default":false},
+    {"type":"range","id":"gallery_limit","label":"Maximum gallery items","min":3,"max":12,"step":1,"default":8},
+    {"type":"richtext","id":"delivery_text","label":"Delivery accordion","default":"<p>Available delivery options and estimates are shown at checkout and may vary by location.</p>"},
+    {"type":"text","id":"story_heading","label":"Product story heading","default":"GOOD FOOD, MADE FOR REAL LIFE."},
+    {"type":"richtext","id":"story_text","label":"Product story text","default":"<p>Simple ingredients and useful everyday food, selected to make protein-forward grocery shopping easier.</p>"},
+    {"type":"image_picker","id":"story_image","label":"Product story image"},
+    {"type":"color","id":"accent","label":"Accent","default":"#526653"}
+  ],
+  "blocks":[{"type":"pair_product","name":"Pair it with","settings":[{"type":"product","id":"product","label":"Product"}]}],
+  "max_blocks":4,
+  "presets":[{"name":"GO Product page"}]
+}
+{% endschema %}

@@ -1,0 +1,58 @@
+<section class="go-about">
+  <div class="go-section go-section--cream"><div class="go-shell go-about__hero"><div><div class="go-kicker">{{ section.settings.eyebrow }}</div><h1 class="go-display">{{ section.settings.heading }}</h1><div class="go-copy go-rte">{{ section.settings.intro }}</div></div>{% if section.settings.hero_image != blank %}<div class="go-media">{{ section.settings.hero_image | image_url: width: 1600 | image_tag: loading: 'eager', widths: '600,900,1200,1600' }}</div>{% endif %}</div></div>
+
+  <div class="go-section"><div class="go-reading"><div class="go-kicker">WHY GO GROCER</div><h2 class="go-h2">{{ section.settings.why_heading }}</h2><div class="go-copy go-rte">{{ section.settings.why_text }}</div></div></div>
+
+  <div class="go-section go-section--dark"><div class="go-shell"><h2 class="go-about__statement">MORE PROTEIN.<br>LESS OVERTHINKING.</h2></div></div>
+
+  <div class="go-section"><div class="go-shell"><div class="go-kicker">WHAT WE BELIEVE</div><div class="go-about__beliefs">{% for block in section.blocks %}{% if block.type == 'belief' %}<div class="go-about__belief" {{ block.shopify_attributes }}><span>0{{ forloop.index }}</span><h3>{{ block.settings.title }}</h3><p>{{ block.settings.text }}</p></div>{% endif %}{% endfor %}</div></div></div>
+
+  <div class="go-section go-section--oat"><div class="go-shell go-about__split">{% if section.settings.story_image != blank %}<div class="go-media">{{ section.settings.story_image | image_url: width: 1500 | image_tag: loading: 'lazy', widths: '600,900,1200,1500' }}</div>{% endif %}<div><div class="go-kicker">EVERYDAY FOOD</div><h2 class="go-h2">WHAT’S ACTUALLY IN YOUR FRIDGE?</h2><div class="go-copy go-rte">{{ section.settings.story_text }}</div></div></div></div>
+
+  <div class="go-section"><div class="go-shell"><div class="go-kicker">THE GO GROCER DIFFERENCE</div><div class="go-about__cards">{% for block in section.blocks %}{% if block.type == 'difference' %}<div class="go-about__card" {{ block.shopify_attributes }}><h3>{{ block.settings.title }}</h3><p>{{ block.settings.text }}</p></div>{% endif %}{% endfor %}</div></div></div>
+
+  <div class="go-section go-section--sage"><div class="go-shell"><div class="go-kicker">THE KOVA ECOSYSTEM</div><h2 class="go-h2">ONE ROUTINE. MORE WAYS TO MAKE IT EASIER.</h2><div class="go-about__ecosystem">{% for block in section.blocks %}{% if block.type == 'ecosystem' %}<div {{ block.shopify_attributes }}><strong>{{ block.settings.title }}</strong><span>{{ block.settings.text }}</span></div>{% endif %}{% endfor %}</div></div></div>
+
+  <div class="go-about__visual"{% if section.settings.break_image != blank %} style="background-image:linear-gradient(rgba(23,23,23,.28),rgba(23,23,23,.28)),url('{{ section.settings.break_image | image_url: width: 2200 }}')"{% endif %}><div class="go-shell"><h2>STOCK YOUR FRIDGE.<br>LIVE YOUR DAY.</h2></div></div>
+
+  <div class="go-section"><div class="go-shell"><div class="go-kicker">SHOP GO GROCER</div><div class="go-about__categories">{% for block in section.blocks %}{% if block.type == 'category' and block.settings.collection != blank %}<a href="{{ block.settings.collection.url }}" {{ block.shopify_attributes }}><span>{{ block.settings.label | default: block.settings.collection.title }}</span> →</a>{% endif %}{% endfor %}</div></div></div>
+</section>
+<style>
+#shopify-section-{{ section.id }} .go-about__hero,#shopify-section-{{ section.id }} .go-about__split{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;}#shopify-section-{{ section.id }} .go-about__hero .go-media,#shopify-section-{{ section.id }} .go-about__split .go-media{aspect-ratio:4/3;}#shopify-section-{{ section.id }} .go-about .go-copy{max-width:58ch;margin-top:20px;}#shopify-section-{{ section.id }} .go-about__statement{font-size:clamp(52px,9vw,126px);line-height:.85;letter-spacing:-.065em;margin:0;}#shopify-section-{{ section.id }} .go-about__beliefs{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:30px;}#shopify-section-{{ section.id }} .go-about__belief{border-top:1px solid var(--go-line);padding-top:16px;}#shopify-section-{{ section.id }} .go-about__belief span{font-size:10px;opacity:.5;}#shopify-section-{{ section.id }} .go-about__belief h3{font-size:24px;margin:36px 0 8px;}#shopify-section-{{ section.id }} .go-about__belief p{font-size:14px;opacity:.72;}#shopify-section-{{ section.id }} .go-about__cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px;}#shopify-section-{{ section.id }} .go-about__card{padding:28px;background:#fff;border:1px solid var(--go-line);}#shopify-section-{{ section.id }} .go-about__ecosystem{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(23,23,23,.2);margin-top:30px;}#shopify-section-{{ section.id }} .go-about__ecosystem>div{background:var(--go-sage);padding:24px;}#shopify-section-{{ section.id }} .go-about__ecosystem strong,#shopify-section-{{ section.id }} .go-about__ecosystem span{display:block;}#shopify-section-{{ section.id }} .go-about__ecosystem span{margin-top:8px;font-size:13px;}#shopify-section-{{ section.id }} .go-about__visual{min-height:520px;background:var(--go-green);background-size:cover;background-position:center;display:flex;align-items:center;color:#fff;}#shopify-section-{{ section.id }} .go-about__visual h2{font-size:clamp(48px,8vw,110px);line-height:.88;letter-spacing:-.06em;margin:0;}#shopify-section-{{ section.id }} .go-about__categories{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:24px;}#shopify-section-{{ section.id }} .go-about__categories a{padding:18px;border:1px solid var(--go-line);display:flex;justify-content:space-between;color:inherit;text-decoration:none;font-weight:700;}
+@media(max-width:749px){#shopify-section-{{ section.id }} .go-about__hero,#shopify-section-{{ section.id }} .go-about__split{grid-template-columns:1fr;}#shopify-section-{{ section.id }} .go-about__beliefs,#shopify-section-{{ section.id }} .go-about__cards,#shopify-section-{{ section.id }} .go-about__ecosystem,#shopify-section-{{ section.id }} .go-about__categories{grid-template-columns:1fr;}#shopify-section-{{ section.id }} .go-about__visual{min-height:400px;}}
+</style>
+{% schema %}
+{
+  "name":"GO About page",
+  "settings":[
+    {"type":"text","id":"eyebrow","label":"Eyebrow","default":"ABOUT GO GROCER"},
+    {"type":"text","id":"heading","label":"Heading","default":"GOOD FOOD. MADE EASIER."},
+    {"type":"richtext","id":"intro","label":"Intro","default":"<p>GO GROCER is a modern high protein grocery built around convenient, good quality food that makes eating well easier.</p>"},
+    {"type":"image_picker","id":"hero_image","label":"Hero image"},
+    {"type":"text","id":"why_heading","label":"Why heading","default":"PROTEIN MADE EASY."},
+    {"type":"richtext","id":"why_text","label":"Why text","default":"<p>Eating well does not need to become another full-time job. We bring together protein-forward staples, useful everyday groceries and convenient food for real routines.</p>"},
+    {"type":"image_picker","id":"story_image","label":"Fridge story image"},
+    {"type":"richtext","id":"story_text","label":"Fridge story text","default":"<p>We care about the food people actually reach for on a normal Tuesday: breakfast before work, something quick between meetings, an easy dinner and the staples that keep the fridge useful.</p>"},
+    {"type":"image_picker","id":"break_image","label":"Visual break image"}
+  ],
+  "blocks":[
+    {"type":"belief","name":"Belief","settings":[{"type":"text","id":"title","label":"Title"},{"type":"textarea","id":"text","label":"Text"}]},
+    {"type":"difference","name":"Difference card","settings":[{"type":"text","id":"title","label":"Title"},{"type":"textarea","id":"text","label":"Text"}]},
+    {"type":"ecosystem","name":"KOVA ecosystem","settings":[{"type":"text","id":"title","label":"Title"},{"type":"text","id":"text","label":"Text"}]},
+    {"type":"category","name":"Category","settings":[{"type":"collection","id":"collection","label":"Collection"},{"type":"text","id":"label","label":"Label override"}]}
+  ],
+  "presets":[{"name":"GO About page","blocks":[
+    {"type":"belief","settings":{"title":"GOOD FOOD","text":"Quality groceries that belong in an everyday routine."}},
+    {"type":"belief","settings":{"title":"MORE FUNCTION","text":"Protein-forward choices that do more without making food complicated."}},
+    {"type":"belief","settings":{"title":"LESS COMPLICATION","text":"Straightforward shopping, clear choices and useful food."}},
+    {"type":"belief","settings":{"title":"EVERYDAY ACCESS","text":"Premium enough to feel good, practical enough to keep buying."}},
+    {"type":"difference","settings":{"title":"CURATED, NOT CROWDED","text":"A tighter grocery edit designed to make choosing easier."}},
+    {"type":"difference","settings":{"title":"PROTEIN IN THE ROUTINE","text":"From breakfast to snacks and ready meals, protein fits across the day."}},
+    {"type":"difference","settings":{"title":"MADE FOR REAL DAYS","text":"Convenient choices for workdays, gym days and everything between."}},
+    {"type":"ecosystem","settings":{"title":"KOVA","text":"Lifestyle and everyday wellness."}},
+    {"type":"ecosystem","settings":{"title":"GO GROCER","text":"High protein grocery."}},
+    {"type":"ecosystem","settings":{"title":"KOVA PROTEIN BAR","text":"Protein on the go."}},
+    {"type":"ecosystem","settings":{"title":"KOVA READY","text":"Food ready when you are."}}
+  ]}]
+}
+{% endschema %}

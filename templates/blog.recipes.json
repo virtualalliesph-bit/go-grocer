@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "go-recipes-page",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}
