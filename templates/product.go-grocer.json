@@ -1,0 +1,34 @@
+/*
+ * GO GROCER alternate product template.
+ * Use this template to verify the custom product page independently of Horizon's native default product template.
+ */
+{
+  "sections": {
+    "main": {
+      "type": "go-product-page",
+      "blocks": {
+        "pair1": {
+          "type": "pair_product",
+          "settings": {}
+        },
+        "pair2": {
+          "type": "pair_product",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "pair1",
+        "pair2"
+      ],
+      "settings": {
+        "show_vendor": true,
+        "show_dynamic_checkout": false,
+        "gallery_limit": 8,
+        "accent": "#526653"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
