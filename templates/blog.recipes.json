@@ -75,11 +75,15 @@
         "goal_prep"
       ],
       "settings": {
+        "recipe_blog": "recipes",
+        "featured_recipe": "",
         "articles_per_page": "9",
         "shop_collection": "",
         "protein_day_url": ""
       }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
