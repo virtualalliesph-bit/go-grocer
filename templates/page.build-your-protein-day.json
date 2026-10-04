@@ -19,7 +19,8 @@
             "protein": "30G PROTEIN",
             "text": "Start with an easy breakfast you can actually repeat.",
             "image": "shopify://shop_images/4faa09d9-2f9c-4d64-bcae-14b5b81aa461.png",
-            "collection": "breakfast"
+            "collection": "breakfast",
+            "icon": "breakfast"
           }
         },
         "meal_lunch": {
@@ -29,7 +30,8 @@
             "protein": "35G PROTEIN",
             "text": "Build lunch around a familiar protein and simple sides.",
             "image": "shopify://shop_images/81ec80b3-b99e-4a8a-a0b3-2e4a0c3515ce_952c277c-b548-4be4-8976-74ea892ffb5a.png",
-            "collection": ""
+            "collection": "",
+            "icon": "lunch"
           }
         },
         "meal_snack": {
@@ -39,7 +41,8 @@
             "protein": "20G PROTEIN",
             "text": "Keep an easy protein option ready for the space between meals.",
             "image": "shopify://shop_images/408281aa-9791-4d90-9824-ccf25c17764d.png",
-            "collection": ""
+            "collection": "",
+            "icon": "snack"
           }
         },
         "meal_dinner": {
@@ -49,7 +52,8 @@
             "protein": "35G PROTEIN",
             "text": "Finish with a straightforward protein-forward dinner.",
             "image": "shopify://shop_images/bce40d62-3cb8-48be-889e-50c830d7eb88.png",
-            "collection": ""
+            "collection": "",
+            "icon": "dinner"
           }
         },
         "shop_breakfast": {
@@ -84,21 +88,24 @@
           "type": "tip",
           "settings": {
             "title": "SWAP THE PROTEIN",
-            "text": "Chicken today, salmon tomorrow, yogurt when you need something fast."
+            "text": "Chicken today, salmon tomorrow, yogurt when you need something fast.",
+            "icon": "swap"
           }
         },
         "tip_like": {
           "type": "tip",
           "settings": {
             "title": "USE WHAT YOU LIKE",
-            "text": "The easiest routine is the one built around food you already enjoy."
+            "text": "The easiest routine is the one built around food you already enjoy.",
+            "icon": "heart"
           }
         },
         "tip_backup": {
           "type": "tip",
           "settings": {
             "title": "KEEP A BACKUP",
-            "text": "Ready meals and simple snacks help when the plan changes."
+            "text": "Ready meals and simple snacks help when the plan changes.",
+            "icon": "backup"
           }
         },
         "faq_macro": {
