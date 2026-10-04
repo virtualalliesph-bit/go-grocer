@@ -11,8 +11,20 @@
   "sections": {
     "main": {
       "type": "go-about-page",
-      "settings": {}
+      "settings": {
+        "eyebrow": "ABOUT GO GROCER",
+        "heading": "GOOD FOOD. MADE EASIER.",
+        "intro": "<p>GO GROCER is a modern high protein grocery built around convenient, good quality food that makes eating well easier.</p>",
+        "hero_image": "shopify://shop_images/f11acd97-ec62-4a16-b7a9-06c13b0e30e0.png",
+        "why_heading": "PROTEIN MADE EASY.",
+        "why_text": "<p>Eating well does not need to become another full-time job. We bring together protein-forward staples, useful everyday groceries and convenient food for real routines.</p>",
+        "story_image": "shopify://shop_images/41ce365a-af36-4bc3-9141-c5258530be59.png",
+        "story_text": "<p>We care about the food people actually reach for on a normal Tuesday: breakfast before work, something quick between meetings, an easy dinner and the staples that keep the fridge useful.</p>",
+        "break_image": "shopify://shop_images/6f74f948-0298-4a72-9467-259cc2ccadb7.png"
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
