@@ -13,7 +13,7 @@
 {
   "sections": {
     "main": {
-      "type": "go-collection-page",
+      "type": "go-collection-page-v2",
       "settings": {}
     }
   },
