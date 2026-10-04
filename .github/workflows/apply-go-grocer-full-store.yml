@@ -1,67 +1,10 @@
 name: Apply GO GROCER full-store theme
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - .github/workflows/apply-go-grocer-full-store.yml
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 jobs:
-  apply-theme:
+  disabled:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout patch source
-        uses: actions/checkout@v4
-        with:
-          ref: main
-          path: patch-source
-
-      - name: Checkout theme development branch
-        uses: actions/checkout@v4
-        with:
-          ref: theme-development
-          path: theme
-          fetch-depth: 0
-
-      - name: Rebuild GO GROCER overlay archive
-        shell: bash
-        run: |
-          cat patch-source/.go-grocer-patch/part-01.txt \
-              patch-source/.go-grocer-patch/part-02.txt \
-              patch-source/.go-grocer-patch/part-03.txt \
-              patch-source/.go-grocer-patch/part-04.txt \
-              > /tmp/go-grocer-patch.b64
-          base64 -d /tmp/go-grocer-patch.b64 > /tmp/go-grocer-patch.tar.gz
-          echo "875071a2d09875c9e0992e49df386eae6d450cd011617f532e60a3dc43ba558e  /tmp/go-grocer-patch.tar.gz" | sha256sum -c -
-          tar -xzf /tmp/go-grocer-patch.tar.gz -C theme
-
-      - name: Validate expected theme files
-        shell: bash
-        run: |
-          test -f theme/layout/theme.liquid
-          test -f theme/templates/index.json
-          test -f theme/sections/go-homepage.liquid
-          test -f theme/sections/go-collection-page.liquid
-          test -f theme/sections/go-product-page.liquid
-          test -f theme/sections/go-footer.liquid
-          test -f theme/assets/go-store.css
-
-      - name: Commit GO GROCER full-store theme
-        shell: bash
-        working-directory: theme
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          rm -f GO-GROCER-CUSTOMIZATION-STATUS.md
-          git add -A
-          if git diff --cached --quiet; then
-            echo "GO GROCER overlay already applied."
-            exit 0
-          fi
-          git commit -m "feat: apply GO GROCER full-store Horizon theme"
-          git push origin HEAD:theme-development
+      - run: echo "Disabled. GO GROCER theme files will be committed directly to theme-development instead."
