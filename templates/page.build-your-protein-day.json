@@ -17,7 +17,9 @@
           "settings": {
             "title": "BREAKFAST",
             "protein": "30G PROTEIN",
-            "text": "Start with an easy breakfast you can actually repeat."
+            "text": "Start with an easy breakfast you can actually repeat.",
+            "image": "shopify://shop_images/4faa09d9-2f9c-4d64-bcae-14b5b81aa461.png",
+            "collection": "breakfast"
           }
         },
         "meal_lunch": {
@@ -25,7 +27,9 @@
           "settings": {
             "title": "LUNCH",
             "protein": "35G PROTEIN",
-            "text": "Build lunch around a familiar protein and simple sides."
+            "text": "Build lunch around a familiar protein and simple sides.",
+            "image": "shopify://shop_images/81ec80b3-b99e-4a8a-a0b3-2e4a0c3515ce_952c277c-b548-4be4-8976-74ea892ffb5a.png",
+            "collection": ""
           }
         },
         "meal_snack": {
@@ -33,7 +37,9 @@
           "settings": {
             "title": "SNACK",
             "protein": "20G PROTEIN",
-            "text": "Keep an easy protein option ready for the space between meals."
+            "text": "Keep an easy protein option ready for the space between meals.",
+            "image": "shopify://shop_images/408281aa-9791-4d90-9824-ccf25c17764d.png",
+            "collection": ""
           }
         },
         "meal_dinner": {
@@ -41,30 +47,36 @@
           "settings": {
             "title": "DINNER",
             "protein": "35G PROTEIN",
-            "text": "Finish with a straightforward protein-forward dinner."
+            "text": "Finish with a straightforward protein-forward dinner.",
+            "image": "shopify://shop_images/bce40d62-3cb8-48be-889e-50c830d7eb88.png",
+            "collection": ""
           }
         },
         "shop_breakfast": {
           "type": "shop",
           "settings": {
+            "collection": "",
             "label": "BREAKFAST"
           }
         },
         "shop_protein": {
           "type": "shop",
           "settings": {
+            "collection": "",
             "label": "PROTEIN"
           }
         },
         "shop_snacks": {
           "type": "shop",
           "settings": {
+            "collection": "",
             "label": "SNACKS"
           }
         },
         "shop_ready": {
           "type": "shop",
           "settings": {
+            "collection": "",
             "label": "READY MEALS"
           }
         },
@@ -124,5 +136,7 @@
       }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
