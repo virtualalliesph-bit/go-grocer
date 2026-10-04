@@ -1,15 +1,22 @@
+{% liquid
+  assign source_blog = section.settings.recipe_blog | default: blog
+  assign featured = section.settings.featured_recipe
+  if featured == blank
+    assign featured = source_blog.articles.first
+  endif
+%}
 <section class="go-recipes">
   <div class="go-section go-section--cream"><div class="go-shell"><div class="go-kicker">GO GROCER RECIPES</div><h1 class="go-display">GOOD FOOD.<br>LESS GUESSWORK.</h1><div class="go-copy"><p>Easy meal ideas built around the groceries you actually keep around.</p></div></div></div>
 
-  {% if section.blocks.size > 0 %}<div class="go-shell go-recipes__mealnav">{% for block in section.blocks %}{% if block.type == 'meal_link' %}<a href="{{ block.settings.link | default: blog.url }}" {{ block.shopify_attributes }}>{{ block.settings.label }} →</a>{% endif %}{% endfor %}</div>{% endif %}
+  {% if section.blocks.size > 0 %}<div class="go-shell go-recipes__mealnav">{% for block in section.blocks %}{% if block.type == 'meal_link' %}<a href="{{ block.settings.link | default: source_blog.url }}" {{ block.shopify_attributes }}>{{ block.settings.label }} →</a>{% endif %}{% endfor %}</div>{% endif %}
 
-  {% assign featured = blog.articles.first %}{% if featured %}<div class="go-section"><div class="go-shell go-recipes__featured">{% if featured.image %}<a class="go-media" href="{{ featured.url }}">{{ featured.image | image_url: width: 1600 | image_tag: loading: 'eager', widths: '600,900,1200,1600' }}</a>{% endif %}<div><div class="go-kicker">FEATURED RECIPE</div><h2 class="go-h2">{{ featured.title }}</h2><div class="go-recipes__meta">{% if featured.metafields.custom.recipe_protein != blank %}<span>{{ featured.metafields.custom.recipe_protein.value }}</span>{% endif %}{% if featured.metafields.custom.recipe_time != blank %}<span>{{ featured.metafields.custom.recipe_time.value }}</span>{% endif %}{% if featured.metafields.custom.recipe_difficulty != blank %}<span>{{ featured.metafields.custom.recipe_difficulty.value }}</span>{% endif %}</div><p>{{ featured.excerpt_or_content | strip_html | truncatewords: 34 }}</p><a class="go-btn" href="{{ featured.url }}">MAKE THIS →</a></div></div></div>{% endif %}
+  {% if featured %}<div class="go-section"><div class="go-shell go-recipes__featured">{% if featured.image %}<a class="go-media" href="{{ featured.url }}">{{ featured.image | image_url: width: 1600 | image_tag: loading: 'eager', widths: '600,900,1200,1600' }}</a>{% endif %}<div><div class="go-kicker">FEATURED RECIPE</div><h2 class="go-h2">{{ featured.title }}</h2><div class="go-recipes__meta">{% if featured.metafields.custom.recipe_protein != blank %}<span>{{ featured.metafields.custom.recipe_protein.value }}</span>{% endif %}{% if featured.metafields.custom.recipe_time != blank %}<span>{{ featured.metafields.custom.recipe_time.value }}</span>{% endif %}{% if featured.metafields.custom.recipe_difficulty != blank %}<span>{{ featured.metafields.custom.recipe_difficulty.value }}</span>{% endif %}</div><p>{{ featured.excerpt_or_content | strip_html | truncatewords: 34 }}</p><a class="go-btn" href="{{ featured.url }}">MAKE THIS →</a></div></div></div>{% endif %}
 
-  <div class="go-section go-section--oat"><div class="go-shell"><div class="go-kicker">LATEST RECIPES</div><h2 class="go-h2">WHAT’S FOR TODAY?</h2>{% paginate blog.articles by section.settings.articles_per_page %}<div class="go-recipes__grid">{% for article in blog.articles %}<article><a class="go-media" href="{{ article.url }}">{% if article.image %}{{ article.image | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '400,700,1000' }}{% endif %}</a><div class="go-recipes__card-copy"><div class="go-recipes__meta">{% if article.metafields.custom.recipe_protein != blank %}<span>{{ article.metafields.custom.recipe_protein.value }}</span>{% endif %}{% if article.metafields.custom.recipe_time != blank %}<span>{{ article.metafields.custom.recipe_time.value }}</span>{% endif %}</div><h3><a href="{{ article.url }}">{{ article.title }}</a></h3></div></article>{% endfor %}</div>{% if paginate.pages > 1 %}<div class="go-pagination">{{ paginate | default_pagination }}</div>{% endif %}{% endpaginate %}</div></div>
+  <div class="go-section go-section--oat"><div class="go-shell"><div class="go-kicker">LATEST RECIPES</div><h2 class="go-h2">WHAT’S FOR TODAY?</h2>{% paginate source_blog.articles by section.settings.articles_per_page %}<div class="go-recipes__grid">{% for article in source_blog.articles %}<article><a class="go-media" href="{{ article.url }}">{% if article.image %}{{ article.image | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '400,700,1000' }}{% endif %}</a><div class="go-recipes__card-copy"><div class="go-recipes__meta">{% if article.metafields.custom.recipe_protein != blank %}<span>{{ article.metafields.custom.recipe_protein.value }}</span>{% endif %}{% if article.metafields.custom.recipe_time != blank %}<span>{{ article.metafields.custom.recipe_time.value }}</span>{% endif %}</div><h3><a href="{{ article.url }}">{{ article.title }}</a></h3></div></article>{% endfor %}</div>{% if paginate.pages > 1 %}<div class="go-pagination">{{ paginate | default_pagination }}</div>{% endif %}{% endpaginate %}</div></div>
 
   {% if section.settings.shop_collection != blank %}<div class="go-section"><div class="go-shell"><div class="go-kicker">SHOP THE RECIPE</div><h2 class="go-h2">START WITH THE FRIDGE.</h2><div class="go-recipes__products">{% for product in section.settings.shop_collection.products limit:4 %}<a href="{{ product.url }}">{% if product.featured_image %}{{ product.featured_image | image_url: width: 800 | image_tag: loading: 'lazy', widths: '300,500,800' }}{% endif %}<strong>{{ product.title }}</strong><span>{{ product.price | money }}</span></a>{% endfor %}</div></div></div>{% endif %}
 
-  <div class="go-section go-section--sage"><div class="go-shell"><div class="go-kicker">BROWSE BY GOAL</div><div class="go-recipes__goals">{% for block in section.blocks %}{% if block.type == 'goal' %}<a href="{{ block.settings.link | default: blog.url }}" {{ block.shopify_attributes }}><strong>{{ block.settings.title }}</strong><span>{{ block.settings.text }}</span></a>{% endif %}{% endfor %}</div></div></div>
+  <div class="go-section go-section--sage"><div class="go-shell"><div class="go-kicker">BROWSE BY GOAL</div><div class="go-recipes__goals">{% for block in section.blocks %}{% if block.type == 'goal' %}<a href="{{ block.settings.link | default: source_blog.url }}" {{ block.shopify_attributes }}><strong>{{ block.settings.title }}</strong><span>{{ block.settings.text }}</span></a>{% endif %}{% endfor %}</div></div></div>
 
   {% if section.settings.protein_day_url != blank %}<div class="go-section go-section--dark"><div class="go-shell go-recipes__cta"><div><div class="go-kicker">PROTEIN MADE EASY.</div><h2 class="go-h2">BUILD YOUR PROTEIN DAY.</h2></div><a class="go-btn" href="{{ section.settings.protein_day_url }}">BUILD YOUR DAY →</a></div></div>{% endif %}
 </section>
@@ -21,8 +28,10 @@
 {
   "name":"GO Recipes landing",
   "settings":[
+    {"type":"blog","id":"recipe_blog","label":"Recipe blog"},
+    {"type":"article","id":"featured_recipe","label":"Featured recipe"},
     {"type":"select","id":"articles_per_page","label":"Articles per page","default":"9","options":[{"value":"6","label":"6"},{"value":"9","label":"9"},{"value":"12","label":"12"}]},
-    {"type":"collection","id":"shop_collection","label":"Shop the recipe collection"},
+    {"type":"collection","id":"shop_collection","label":"Optional product collection"},
     {"type":"url","id":"protein_day_url","label":"Build Your Protein Day link"}
   ],
   "blocks":[
