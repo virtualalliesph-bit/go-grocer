@@ -1,1 +1,150 @@
-<section class="go-contact-page go-section"><div class="go-shell"><div class="go-kicker">GET IN TOUCH</div><h1 class="go-display">HOW CAN WE HELP?</h1><div class="go-copy go-rte">{{ section.settings.intro }}</div><div class="go-contact-page__grid"><div class="go-contact-page__options">{% for block in section.blocks %}{% if block.type == 'option' %}<div class="go-contact-page__option" {{ block.shopify_attributes }}><h3>{{ block.settings.title }}</h3><p>{{ block.settings.text }}</p>{% if block.settings.link_label != blank and block.settings.link != blank %}<a href="{{ block.settings.link }}">{{ block.settings.link_label }} →</a>{% endif %}</div>{% endif %}{% endfor %}</div><div class="go-contact-page__form">{% form 'contact' %}{% if form.posted_successfully? %}<p class="go-contact-page__success">Thanks for reaching out. We’ll get back to you as soon as we can.</p>{% endif %}{{ form.errors | default_errors }}<label>Name<input type="text" name="contact[name]" required></label><label>Email<input type="email" name="contact[email]" required></label><label>Mobile (optional)<input type="tel" name="contact[phone]"></label><label>Topic<select name="contact[topic]"><option>Order help</option><option>Product question</option><option>Delivery</option><option>Returns</option><option>General inquiry</option></select></label><label>Order number (optional)<input type="text" name="contact[order_number]"></label><label>Message<textarea name="contact[body]" rows="7" required></textarea></label><button class="go-btn" type="submit">SEND MESSAGE</button>{% endform %}</div></div><div class="go-contact-page__faq"><h2 class="go-h2">QUICK ANSWERS</h2><div class="go-accordion">{% for block in section.blocks %}{% if block.type == 'faq' %}<details {{ block.shopify_attributes }}><summary>{{ block.settings.question }} <span>+</span></summary><div class="go-rte">{{ block.settings.answer }}</div></details>{% endif %}{% endfor %}</div></div></div></section><style>#shopify-section-{{ section.id }} .go-contact-page>.go-shell>.go-copy{max-width:58ch;margin-top:20px;}#shopify-section-{{ section.id }} .go-contact-page__grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:50px;margin-top:46px;}#shopify-section-{{ section.id }} .go-contact-page__options{display:grid;gap:12px;}#shopify-section-{{ section.id }} .go-contact-page__option{padding:22px;border:1px solid var(--go-line);background:#fff;}#shopify-section-{{ section.id }} .go-contact-page__option h3{margin:0 0 8px;}#shopify-section-{{ section.id }} .go-contact-page__option p{font-size:14px;}#shopify-section-{{ section.id }} .go-contact-page__option a{font-weight:700;color:inherit;}#shopify-section-{{ section.id }} .go-contact-page__form{background:var(--go-cream);padding:28px;}#shopify-section-{{ section.id }} .go-contact-page__form label{display:block;font-size:12px;font-weight:700;margin-bottom:15px;}#shopify-section-{{ section.id }} .go-contact-page__form input,#shopify-section-{{ section.id }} .go-contact-page__form select,#shopify-section-{{ section.id }} .go-contact-page__form textarea{width:100%;margin-top:7px;padding:12px;border:1px solid var(--go-line);background:#fff;border-radius:4px;}#shopify-section-{{ section.id }} .go-contact-page__success{padding:12px;background:var(--go-sage);}#shopify-section-{{ section.id }} .go-contact-page__faq{margin-top:80px;}#shopify-section-{{ section.id }} .go-contact-page__faq .go-accordion{margin-top:25px;}@media(max-width:749px){#shopify-section-{{ section.id }} .go-contact-page__grid{grid-template-columns:1fr;}}</style>{% schema %}{"name":"GO Contact page","settings":[{"type":"richtext","id":"intro","label":"Intro","default":"<p>Questions about an order, a product or GO GROCER? Send us a message and we’ll point you in the right direction.</p>"}],"blocks":[{"type":"option","name":"Contact option","settings":[{"type":"text","id":"title","label":"Title"},{"type":"textarea","id":"text","label":"Text"},{"type":"text","id":"link_label","label":"Link label"},{"type":"url","id":"link","label":"Link"}]},{"type":"faq","name":"Quick FAQ","settings":[{"type":"text","id":"question","label":"Question"},{"type":"richtext","id":"answer","label":"Answer"}]}],"presets":[{"name":"GO Contact page","blocks":[{"type":"option","settings":{"title":"ORDER HELP","text":"Include your order number so we can help faster."}},{"type":"option","settings":{"title":"PRODUCT QUESTIONS","text":"Ask about ingredients, storage, preparation or product details."}},{"type":"option","settings":{"title":"DELIVERY & RETURNS","text":"For delivery, returns and support questions, send us the details below."}},{"type":"faq","settings":{"question":"Where can I find delivery information?","answer":"<p>Delivery options and any available timeframes are shown during checkout or in the relevant store information.</p>"}},{"type":"faq","settings":{"question":"Can I ask about product nutrition?","answer":"<p>Yes. Send us the product name and your question and we’ll help with the available product information.</p>"}}]}]}{% endschema %}
+<section class="go-contact-page">
+  <div class="go-contact-page__hero go-section--cream">
+    <div class="go-shell">
+      <div class="go-kicker">GET IN TOUCH</div>
+      <h1 class="go-display">HOW CAN WE HELP?</h1>
+      <div class="go-copy go-rte">{{ section.settings.intro }}</div>
+    </div>
+  </div>
+
+  <div class="go-contact-page__main">
+    <div class="go-shell go-contact-page__grid">
+      <div class="go-contact-page__aside">
+        <div class="go-kicker">START HERE</div>
+        <h2 class="go-h3">THE RIGHT HELP, FASTER.</h2>
+        <p class="go-contact-page__aside-intro">Choose the topic closest to what you need. For order questions, include your order number so we can look into it faster.</p>
+
+        <div class="go-contact-page__options">
+          {% for block in section.blocks %}
+            {% if block.type == 'option' %}
+              <div class="go-contact-page__option" {{ block.shopify_attributes }}>
+                <span class="go-contact-page__option-number">0{{ forloop.index }}</span>
+                <div>
+                  <h3>{{ block.settings.title }}</h3>
+                  <p>{{ block.settings.text }}</p>
+                  {% if block.settings.link_label != blank and block.settings.link != blank %}
+                    <a href="{{ block.settings.link }}">{{ block.settings.link_label }} →</a>
+                  {% endif %}
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+
+        <div class="go-contact-page__note">
+          <strong>GOOD TO KNOW</strong>
+          <span>Product details, delivery information and common questions may already be answered in our FAQ.</span>
+          {% if section.settings.faq_link != blank %}<a href="{{ section.settings.faq_link }}">VISIT FAQ →</a>{% endif %}
+        </div>
+      </div>
+
+      <div class="go-contact-page__form-wrap">
+        <div class="go-kicker">SEND A MESSAGE</div>
+        <h2 class="go-h3">TELL US WHAT YOU NEED.</h2>
+        <div class="go-contact-page__form">
+          {% form 'contact' %}
+            {% if form.posted_successfully? %}<p class="go-contact-page__success">Thanks for reaching out. We’ll get back to you as soon as we can.</p>{% endif %}
+            {{ form.errors | default_errors }}
+            <div class="go-contact-page__form-row">
+              <label>Name<input type="text" name="contact[name]" required></label>
+              <label>Email<input type="email" name="contact[email]" required></label>
+            </div>
+            <div class="go-contact-page__form-row">
+              <label>Mobile (optional)<input type="tel" name="contact[phone]"></label>
+              <label>Order number (optional)<input type="text" name="contact[order_number]"></label>
+            </div>
+            <label>Topic<select name="contact[topic]"><option>Order help</option><option>Product question</option><option>Delivery</option><option>Returns</option><option>General inquiry</option></select></label>
+            <label>Message<textarea name="contact[body]" rows="7" required></textarea></label>
+            <button class="go-btn" type="submit">SEND MESSAGE →</button>
+          {% endform %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% assign has_faq = false %}
+  {% for block in section.blocks %}{% if block.type == 'faq' %}{% assign has_faq = true %}{% break %}{% endif %}{% endfor %}
+  {% if has_faq %}
+    <div class="go-contact-page__faq go-section--sage">
+      <div class="go-shell go-contact-page__faq-grid">
+        <div>
+          <div class="go-kicker">QUICK ANSWERS</div>
+          <h2 class="go-h2">BEFORE YOU HIT SEND.</h2>
+          <p>Some of the most common questions are answered right here.</p>
+        </div>
+        <div class="go-accordion">
+          {% for block in section.blocks %}
+            {% if block.type == 'faq' %}
+              <details {{ block.shopify_attributes }}>
+                <summary>{{ block.settings.question }} <span>+</span></summary>
+                <div class="go-rte">{{ block.settings.answer }}</div>
+              </details>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</section>
+
+<style>
+#shopify-section-{{ section.id }} .go-contact-page__hero{padding:72px 0 78px;}
+#shopify-section-{{ section.id }} .go-contact-page__hero .go-copy{max-width:58ch;margin-top:18px;}
+#shopify-section-{{ section.id }} .go-contact-page__hero .go-display{max-width:900px;}
+#shopify-section-{{ section.id }} .go-contact-page__main{padding:72px 0 84px;background:var(--go-warm-white,#F7F5F0);}
+#shopify-section-{{ section.id }} .go-contact-page__grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:72px;align-items:start;}
+#shopify-section-{{ section.id }} .go-contact-page__aside .go-h3,#shopify-section-{{ section.id }} .go-contact-page__form-wrap .go-h3{margin:8px 0 14px;}
+#shopify-section-{{ section.id }} .go-contact-page__aside-intro{max-width:50ch;margin:0 0 28px;opacity:.78;}
+#shopify-section-{{ section.id }} .go-contact-page__options{display:grid;gap:10px;}
+#shopify-section-{{ section.id }} .go-contact-page__option{display:grid;grid-template-columns:38px 1fr;gap:16px;padding:20px 0;border-top:1px solid var(--go-line);}
+#shopify-section-{{ section.id }} .go-contact-page__option:last-child{border-bottom:1px solid var(--go-line);}
+#shopify-section-{{ section.id }} .go-contact-page__option-number{font-size:10px;font-weight:800;letter-spacing:.08em;color:var(--go-green);padding-top:3px;}
+#shopify-section-{{ section.id }} .go-contact-page__option h3{font-size:18px;margin:0 0 5px;letter-spacing:-.02em;}
+#shopify-section-{{ section.id }} .go-contact-page__option p{font-size:14px;margin:0;opacity:.76;}
+#shopify-section-{{ section.id }} .go-contact-page__option a{display:inline-block;margin-top:8px;font-size:12px;font-weight:800;color:inherit;text-decoration:none;}
+#shopify-section-{{ section.id }} .go-contact-page__note{margin-top:26px;padding:20px;background:var(--go-sage);display:grid;gap:7px;font-size:13px;}
+#shopify-section-{{ section.id }} .go-contact-page__note strong{font-size:10px;letter-spacing:.12em;}
+#shopify-section-{{ section.id }} .go-contact-page__note a{font-size:11px;font-weight:800;color:inherit;text-decoration:none;margin-top:4px;}
+#shopify-section-{{ section.id }} .go-contact-page__form-wrap{min-width:0;}
+#shopify-section-{{ section.id }} .go-contact-page__form{background:var(--go-cream);padding:30px;}
+#shopify-section-{{ section.id }} .go-contact-page__form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+#shopify-section-{{ section.id }} .go-contact-page__form label{display:block;font-size:11px;font-weight:800;margin-bottom:15px;letter-spacing:.01em;}
+#shopify-section-{{ section.id }} .go-contact-page__form input,#shopify-section-{{ section.id }} .go-contact-page__form select,#shopify-section-{{ section.id }} .go-contact-page__form textarea{box-sizing:border-box;width:100%;margin-top:7px;padding:12px 13px;border:1px solid var(--go-line);background:#fff;border-radius:4px;color:inherit;font:inherit;}
+#shopify-section-{{ section.id }} .go-contact-page__form input,#shopify-section-{{ section.id }} .go-contact-page__form select{min-height:46px;}
+#shopify-section-{{ section.id }} .go-contact-page__form textarea{resize:vertical;min-height:150px;}
+#shopify-section-{{ section.id }} .go-contact-page__success{padding:14px;background:var(--go-sage);margin-top:0;}
+#shopify-section-{{ section.id }} .go-contact-page__faq{padding:72px 0 80px;}
+#shopify-section-{{ section.id }} .go-contact-page__faq-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:72px;align-items:start;}
+#shopify-section-{{ section.id }} .go-contact-page__faq-grid>div:first-child p{max-width:36ch;opacity:.75;}
+#shopify-section-{{ section.id }} .go-contact-page__faq .go-accordion{margin-top:0;}
+@media(max-width:749px){
+  #shopify-section-{{ section.id }} .go-contact-page__hero{padding:54px 0 58px;}
+  #shopify-section-{{ section.id }} .go-contact-page__main{padding:52px 0 60px;}
+  #shopify-section-{{ section.id }} .go-contact-page__grid,#shopify-section-{{ section.id }} .go-contact-page__faq-grid{grid-template-columns:1fr;gap:42px;}
+  #shopify-section-{{ section.id }} .go-contact-page__form-row{grid-template-columns:1fr;gap:0;}
+  #shopify-section-{{ section.id }} .go-contact-page__form{padding:22px;}
+  #shopify-section-{{ section.id }} .go-contact-page__faq{padding:52px 0 60px;}
+}
+</style>
+
+{% schema %}
+{
+  "name":"GO Contact page",
+  "settings":[
+    {"type":"richtext","id":"intro","label":"Intro","default":"<p>Questions about an order, a product or GO GROCER? Send us a message and we’ll point you in the right direction.</p>"},
+    {"type":"url","id":"faq_link","label":"FAQ page link"}
+  ],
+  "blocks":[
+    {"type":"option","name":"Contact option","settings":[{"type":"text","id":"title","label":"Title"},{"type":"textarea","id":"text","label":"Text"},{"type":"text","id":"link_label","label":"Link label"},{"type":"url","id":"link","label":"Link"}]},
+    {"type":"faq","name":"Quick FAQ","settings":[{"type":"text","id":"question","label":"Question"},{"type":"richtext","id":"answer","label":"Answer"}]}
+  ],
+  "presets":[{"name":"GO Contact page","blocks":[
+    {"type":"option","settings":{"title":"ORDER HELP","text":"Include your order number so we can help faster."}},
+    {"type":"option","settings":{"title":"PRODUCT QUESTIONS","text":"Ask about ingredients, storage, preparation or product details."}},
+    {"type":"option","settings":{"title":"DELIVERY & RETURNS","text":"For delivery, returns and support questions, send us the details below."}},
+    {"type":"faq","settings":{"question":"Where can I find delivery information?","answer":"<p>Delivery options and any available timeframes are shown during checkout or in the relevant store information.</p>"}},
+    {"type":"faq","settings":{"question":"Can I ask about product nutrition?","answer":"<p>Yes. Send us the product name and your question and we’ll help with the available product information.</p>"}},
+    {"type":"faq","settings":{"question":"What should I include for an order issue?","answer":"<p>Please include your order number and a short description of the issue. If relevant, include the product name so the team can review your message faster.</p>"}}
+  ]}]
+}
+{% endschema %}
