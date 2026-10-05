@@ -7,17 +7,23 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
-/*
- * GO GROCER template. Built on Horizon 4.2.0.
- */
 {
   "sections": {
     "main": {
-      "type": "go-collection-page",
-      "settings": {}
+      "type": "go-collection-page-v2",
+      "settings": {
+        "eyebrow": "GO GROCER",
+        "hero_size": "standard",
+        "show_filters": true,
+        "show_vendor": true,
+        "columns": "4",
+        "product_image_fit": "cover",
+        "products_per_page": "24",
+        "bottom_copy": "",
+        "hero_bg": "#eae2d4",
+        "accent": "#526653"
+      }
     }
   },
-  "order": [
-    "main"
-  ]
+  "order": ["main"]
 }
