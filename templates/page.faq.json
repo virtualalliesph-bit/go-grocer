@@ -11,7 +11,145 @@
   "sections": {
     "main": {
       "type": "go-faq-page",
-      "settings": {}
+      "blocks": {
+        "cat_ordering": {
+          "type": "category",
+          "settings": {
+            "title": "ORDERING"
+          }
+        },
+        "faq_order": {
+          "type": "faq",
+          "settings": {
+            "question": "How do I place an order?",
+            "answer": "<p>Add the groceries you want to your cart, review your order and complete checkout using the available payment and delivery options.</p>",
+            "link": "",
+            "link_label": ""
+          }
+        },
+        "faq_change": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I change or cancel an order?",
+            "answer": "<p>Contact us as soon as possible with your order number. We will confirm what can still be changed based on the order's current status.</p>",
+            "link": "",
+            "link_label": ""
+          }
+        },
+        "cat_products": {
+          "type": "category",
+          "settings": {
+            "title": "PRODUCTS & NUTRITION"
+          }
+        },
+        "faq_nutrition": {
+          "type": "faq",
+          "settings": {
+            "question": "Where can I find ingredients and nutrition information?",
+            "answer": "<p>Product specific ingredients and nutrition details are shown on the relevant product page when supplied for that item.</p>",
+            "link": "",
+            "link_label": ""
+          }
+        },
+        "faq_protein": {
+          "type": "faq",
+          "settings": {
+            "question": "Are protein amounts the same for every product?",
+            "answer": "<p>No. Protein amounts vary by product and serving size. Check the individual product information for the most relevant details.</p>",
+            "link": "",
+            "link_label": ""
+          }
+        },
+        "cat_delivery": {
+          "type": "category",
+          "settings": {
+            "title": "DELIVERY"
+          }
+        },
+        "faq_area": {
+          "type": "faq",
+          "settings": {
+            "question": "Where do you deliver?",
+            "answer": "<p>Available delivery options depend on your location. Enter your delivery details at checkout to see the options currently available to your address.</p>",
+            "link": "",
+            "link_label": ""
+          }
+        },
+        "faq_arrival": {
+          "type": "faq",
+          "settings": {
+            "question": "When will my order arrive?",
+            "answer": "<p>Available delivery estimates are shown during checkout. Timing can vary based on location, order contents and the delivery option selected.</p>",
+            "link": "",
+            "link_label": ""
+          }
+        },
+        "cat_payments": {
+          "type": "category",
+          "settings": {
+            "title": "PAYMENTS"
+          }
+        },
+        "faq_payment": {
+          "type": "faq",
+          "settings": {
+            "question": "What payment methods do you accept?",
+            "answer": "<p>The payment methods currently available to your order are displayed securely at checkout.</p>",
+            "link": "",
+            "link_label": ""
+          }
+        },
+        "cat_storage": {
+          "type": "category",
+          "settings": {
+            "title": "STORAGE & HANDLING"
+          }
+        },
+        "faq_storage": {
+          "type": "faq",
+          "settings": {
+            "question": "How should I store my groceries?",
+            "answer": "<p>Follow the storage instructions shown on the product packaging or product page. Refrigerated and frozen items should be stored appropriately after delivery.</p>",
+            "link": "",
+            "link_label": ""
+          }
+        },
+        "cat_support": {
+          "type": "category",
+          "settings": {
+            "title": "RETURNS & SUPPORT"
+          }
+        },
+        "faq_problem": {
+          "type": "faq",
+          "settings": {
+            "question": "What if there is a problem with my order?",
+            "answer": "<p>Contact GO GROCER support with your order number and a clear description of the issue so the team can review the order and advise on the next step.</p>",
+            "link": "",
+            "link_label": ""
+          }
+        }
+      },
+      "block_order": [
+        "cat_ordering",
+        "faq_order",
+        "faq_change",
+        "cat_products",
+        "faq_nutrition",
+        "faq_protein",
+        "cat_delivery",
+        "faq_area",
+        "faq_arrival",
+        "cat_payments",
+        "faq_payment",
+        "cat_storage",
+        "faq_storage",
+        "cat_support",
+        "faq_problem"
+      ],
+      "settings": {
+        "open_first": false
+      }
     }
   },
   "order": ["main"]
