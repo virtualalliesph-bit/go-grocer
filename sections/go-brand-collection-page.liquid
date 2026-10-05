@@ -1,0 +1,196 @@
+{% liquid
+  assign brand_logo = collection.metafields.custom.brand_logo.value
+  assign brand_tagline = collection.metafields.custom.brand_tagline.value
+  assign brand_origin = collection.metafields.custom.brand_origin.value
+  assign brand_story = collection.metafields.custom.brand_story.value
+  assign brand_website = collection.metafields.custom.brand_website.value
+  assign hero_image = collection.metafields.custom.hero_image.value | default: collection.image
+  assign hero_copy = collection.description
+%}
+
+<section class="go-brand-collection" style="--brand-hero-bg:{{ section.settings.hero_bg }};--brand-accent:{{ section.settings.accent }};--brand-story-bg:{{ section.settings.story_bg }};">
+  <div class="go-brand-collection__hero">
+    <div class="go-shell go-brand-collection__hero-grid">
+      <div class="go-brand-collection__hero-copy">
+        {% if brand_logo != blank %}
+          <div class="go-brand-collection__logo-wrap">
+            {{ brand_logo | image_url: width: 640 | image_tag: loading: 'eager', widths: '180,260,420,640', class: 'go-brand-collection__logo', alt: collection.title }}
+          </div>
+        {% else %}
+          <div class="go-kicker">{{ section.settings.eyebrow }}</div>
+        {% endif %}
+        <h1 class="go-display">{{ collection.title }}</h1>
+        {% if brand_tagline != blank %}<div class="go-brand-collection__tagline">{{ brand_tagline }}</div>{% endif %}
+        {% if hero_copy != blank %}<div class="go-copy go-rte">{{ hero_copy }}</div>{% endif %}
+        {% if brand_origin != blank or brand_website != blank %}
+          <div class="go-brand-collection__meta">
+            {% if brand_origin != blank %}<span>{{ brand_origin }}</span>{% endif %}
+            {% if brand_website != blank %}<a href="{{ brand_website }}" target="_blank" rel="noopener">BRAND WEBSITE ↗</a>{% endif %}
+          </div>
+        {% endif %}
+      </div>
+      {% if hero_image != blank %}
+        <div class="go-brand-collection__hero-media">
+          {{ hero_image | image_url: width: 1800 | image_tag: loading: 'eager', widths: '640,960,1200,1600,1800', sizes: '(min-width: 750px) 48vw, 100vw', alt: collection.title }}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  {% if section.settings.show_story and brand_story != blank %}
+    <div class="go-brand-collection__story">
+      <div class="go-reading">
+        <div class="go-kicker">ABOUT THE BRAND</div>
+        <h2 class="go-h2">{{ section.settings.story_heading }}</h2>
+        <div class="go-rte">{{ brand_story }}</div>
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="go-shell go-brand-collection__shop-head">
+    <div>
+      <div class="go-kicker">SHOP THE BRAND</div>
+      <h2 class="go-h2">{{ section.settings.products_heading | default: collection.title }}</h2>
+    </div>
+    <div class="go-brand-collection__count">{{ collection.products_count }} products</div>
+  </div>
+
+  <div class="go-shell go-brand-collection__toolbar">
+    <div></div>
+    <form method="get">
+      <label for="BrandSortBy-{{ section.id }}">Sort</label>
+      <select id="BrandSortBy-{{ section.id }}" name="sort_by" onchange="this.form.submit()">
+        {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
+        {% for option in collection.sort_options %}<option value="{{ option.value }}"{% if option.value == sort_by %} selected{% endif %}>{{ option.name }}</option>{% endfor %}
+      </select>
+    </form>
+  </div>
+
+  {% paginate collection.products by section.settings.products_per_page %}
+    <div class="go-shell go-brand-collection__body">
+      {% if section.settings.show_filters and collection.filters.size > 0 %}
+        <aside class="go-brand-collection__filters">
+          <form method="get" id="BrandFilters-{{ section.id }}">
+            {% if collection.sort_by != blank %}<input type="hidden" name="sort_by" value="{{ collection.sort_by }}">{% endif %}
+            {% for filter in collection.filters %}
+              <details open>
+                <summary>{{ filter.label }}</summary>
+                <div class="go-brand-filter-values">
+                  {% case filter.type %}
+                    {% when 'list', 'boolean' %}
+                      {% for value in filter.values %}
+                        <label><input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}"{% if value.active %} checked{% endif %}{% if value.count == 0 and value.active == false %} disabled{% endif %}> <span>{{ value.label }} ({{ value.count }})</span></label>
+                      {% endfor %}
+                    {% when 'price_range' %}
+                      <label>Min <input type="number" name="{{ filter.min_value.param_name }}" value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}" min="0"></label>
+                      <label>Max <input type="number" name="{{ filter.max_value.param_name }}" value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}" min="0"></label>
+                  {% endcase %}
+                </div>
+              </details>
+            {% endfor %}
+            <button class="go-btn" type="submit">APPLY FILTERS</button>
+            <a class="go-brand-collection__clear" href="{{ collection.url }}">Clear</a>
+          </form>
+        </aside>
+      {% endif %}
+
+      <div class="go-brand-collection__main">
+        {% if collection.products.size > 0 %}
+          <div class="go-product-grid">
+            {% for product in collection.products %}
+              <article class="go-product-card">
+                <a class="go-product-card__media" href="{{ product.url }}">
+                  {% if product.featured_image %}{{ product.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '360,540,720,900', sizes: '(min-width: 990px) 22vw, 50vw', alt: product.title }}{% endif %}
+                  {% if product.metafields.custom.protein_per_serving != blank %}<span class="go-badge">{{ product.metafields.custom.protein_per_serving.value }}</span>{% endif %}
+                </a>
+                <div class="go-product-card__info">
+                  {% if section.settings.show_vendor and product.vendor != blank %}<div class="go-kicker">{{ product.vendor }}</div>{% endif %}
+                  <a class="go-product-card__title" href="{{ product.url }}">{{ product.title }}</a>
+                  <div class="go-product-card__row"><span class="go-price">{{ product.price | money }}{% if product.compare_at_price > product.price %} <s>{{ product.compare_at_price | money }}</s>{% endif %}</span></div>
+                  {% if product.available %}
+                    {% if product.has_only_default_variant %}
+                      {% form 'product', product %}<input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}"><button class="go-product-card__action" type="submit">QUICK ADD</button>{% endform %}
+                    {% else %}
+                      <a class="go-product-card__action" href="{{ product.url }}">CHOOSE OPTIONS</a>
+                    {% endif %}
+                  {% else %}<span class="go-product-card__action is-disabled">SOLD OUT</span>{% endif %}
+                </div>
+              </article>
+            {% endfor %}
+          </div>
+        {% else %}<div class="go-empty">No products found.</div>{% endif %}
+        {% if paginate.pages > 1 %}<nav class="go-pagination">{{ paginate | default_pagination }}</nav>{% endif %}
+      </div>
+    </div>
+  {% endpaginate %}
+
+  {% if section.settings.bottom_copy != blank %}<div class="go-reading go-brand-collection__bottom go-rte">{{ section.settings.bottom_copy }}</div>{% endif %}
+</section>
+
+<style>
+#shopify-section-{{ section.id }} .go-brand-collection__hero{background:var(--brand-hero-bg);padding:54px 0;}
+#shopify-section-{{ section.id }} .go-brand-collection__hero-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:center;}
+#shopify-section-{{ section.id }} .go-brand-collection__hero-copy{max-width:700px;}
+#shopify-section-{{ section.id }} .go-brand-collection__logo-wrap{margin-bottom:22px;}
+#shopify-section-{{ section.id }} .go-brand-collection__logo{display:block;width:auto;max-width:{{ section.settings.logo_width }}px;max-height:100px;object-fit:contain;}
+#shopify-section-{{ section.id }} .go-brand-collection__tagline{font-size:20px;font-weight:700;letter-spacing:-.02em;margin-top:14px;}
+#shopify-section-{{ section.id }} .go-brand-collection__hero-copy .go-copy{margin-top:16px;max-width:58ch;}
+#shopify-section-{{ section.id }} .go-brand-collection__meta{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;}
+#shopify-section-{{ section.id }} .go-brand-collection__meta span,#shopify-section-{{ section.id }} .go-brand-collection__meta a{padding:9px 12px;border:1px solid rgba(23,23,23,.18);border-radius:999px;color:inherit;text-decoration:none;}
+#shopify-section-{{ section.id }} .go-brand-collection__hero-media{aspect-ratio:4/3;overflow:hidden;background:#fff;}
+#shopify-section-{{ section.id }} .go-brand-collection__hero-media img{width:100%;height:100%;object-fit:cover;display:block;}
+#shopify-section-{{ section.id }} .go-brand-collection__story{background:var(--brand-story-bg);padding:60px 0;}
+#shopify-section-{{ section.id }} .go-brand-collection__story .go-rte{margin-top:18px;}
+#shopify-section-{{ section.id }} .go-brand-collection__shop-head{display:flex;align-items:end;justify-content:space-between;gap:24px;padding-top:56px;}
+#shopify-section-{{ section.id }} .go-brand-collection__shop-head .go-h2{margin-bottom:0;}
+#shopify-section-{{ section.id }} .go-brand-collection__count{font-size:12px;font-weight:700;opacity:.65;white-space:nowrap;}
+#shopify-section-{{ section.id }} .go-brand-collection__toolbar{display:flex;justify-content:space-between;align-items:center;padding:20px 0 18px;font-size:13px;}
+#shopify-section-{{ section.id }} .go-brand-collection__toolbar form{display:flex;align-items:center;gap:10px;}
+#shopify-section-{{ section.id }} .go-brand-collection__toolbar select{min-height:38px;border:1px solid var(--go-line);background:#fff;padding:6px 10px;border-radius:4px;}
+#shopify-section-{{ section.id }} .go-brand-collection__body{display:grid;grid-template-columns:{% if section.settings.show_filters %}240px 1fr{% else %}1fr{% endif %};gap:34px;padding-bottom:76px;}
+#shopify-section-{{ section.id }} .go-brand-collection__filters{font-size:13px;}
+#shopify-section-{{ section.id }} .go-brand-collection__filters details{border-top:1px solid var(--go-line);padding:14px 0;}
+#shopify-section-{{ section.id }} .go-brand-collection__filters summary{font-weight:700;cursor:pointer;}
+#shopify-section-{{ section.id }} .go-brand-filter-values{display:grid;gap:9px;padding:13px 0;}
+#shopify-section-{{ section.id }} .go-brand-filter-values label{display:flex;gap:8px;align-items:center;}
+#shopify-section-{{ section.id }} .go-brand-collection__clear{display:inline-block;margin-top:12px;color:inherit;font-size:12px;}
+#shopify-section-{{ section.id }} .go-product-grid{display:grid;grid-template-columns:repeat({{ section.settings.columns }},minmax(0,1fr));gap:26px 18px;}
+#shopify-section-{{ section.id }} .go-product-card__media{position:relative;display:block;aspect-ratio:4/5;background:#fff;overflow:hidden;}
+#shopify-section-{{ section.id }} .go-product-card__media img{width:100%;height:100%;object-fit:cover;display:block;}
+#shopify-section-{{ section.id }} .go-product-card__media .go-badge{position:absolute;top:10px;right:10px;}
+#shopify-section-{{ section.id }} .go-product-card__info{padding-top:12px;}
+#shopify-section-{{ section.id }} .go-product-card__title{display:block;color:inherit;text-decoration:none;font-size:16px;font-weight:700;margin:5px 0;line-height:1.2;}
+#shopify-section-{{ section.id }} .go-product-card__row{margin:10px 0;}
+#shopify-section-{{ section.id }} .go-product-card__action{display:flex;justify-content:center;align-items:center;width:100%;min-height:42px;background:var(--brand-accent);color:#fff;border:0;border-radius:4px;text-decoration:none;font-size:11px;font-weight:700;letter-spacing:.06em;}
+#shopify-section-{{ section.id }} .go-product-card__action.is-disabled{background:#aaa;}
+#shopify-section-{{ section.id }} .go-product-card s{opacity:.5;font-weight:400;margin-left:4px;}
+#shopify-section-{{ section.id }} .go-pagination{margin-top:36px;}
+#shopify-section-{{ section.id }} .go-brand-collection__bottom{padding-bottom:76px;}
+@media(max-width:989px){#shopify-section-{{ section.id }} .go-product-grid{grid-template-columns:repeat(2,minmax(0,1fr));}#shopify-section-{{ section.id }} .go-brand-collection__body{grid-template-columns:1fr;}#shopify-section-{{ section.id }} .go-brand-collection__filters{border:1px solid var(--go-line);padding:14px;}}
+@media(max-width:749px){#shopify-section-{{ section.id }} .go-brand-collection__hero{padding:38px 0;}#shopify-section-{{ section.id }} .go-brand-collection__hero-grid{grid-template-columns:1fr;gap:28px;}#shopify-section-{{ section.id }} .go-brand-collection__hero-media{aspect-ratio:4/3;}#shopify-section-{{ section.id }} .go-brand-collection__story{padding:46px 0;}#shopify-section-{{ section.id }} .go-brand-collection__shop-head{align-items:flex-start;flex-direction:column;padding-top:42px;}#shopify-section-{{ section.id }} .go-product-grid{gap:20px 10px;}#shopify-section-{{ section.id }} .go-product-card__title{font-size:14px;}}
+</style>
+
+{% schema %}
+{
+  "name":"GO Brand collection",
+  "settings":[
+    {"type":"header","content":"Brand hero"},
+    {"type":"text","id":"eyebrow","label":"Fallback eyebrow","default":"BRAND SPOTLIGHT"},
+    {"type":"range","id":"logo_width","label":"Brand logo max width","min":100,"max":320,"step":10,"unit":"px","default":200},
+    {"type":"color","id":"hero_bg","label":"Hero background","default":"#EAE2D4"},
+    {"type":"header","content":"Brand story"},
+    {"type":"checkbox","id":"show_story","label":"Show brand story when available","default":true},
+    {"type":"text","id":"story_heading","label":"Story heading","default":"WHY WE STOCK IT."},
+    {"type":"color","id":"story_bg","label":"Story background","default":"#F7F5F0"},
+    {"type":"header","content":"Products"},
+    {"type":"text","id":"products_heading","label":"Products heading","default":"SHOP THE BRAND"},
+    {"type":"checkbox","id":"show_filters","label":"Show filters","default":true},
+    {"type":"checkbox","id":"show_vendor","label":"Show vendor","default":false},
+    {"type":"select","id":"columns","label":"Desktop columns","default":"4","options":[{"value":"3","label":"3"},{"value":"4","label":"4"},{"value":"5","label":"5"}]},
+    {"type":"select","id":"products_per_page","label":"Products per page","default":"24","options":[{"value":"12","label":"12"},{"value":"24","label":"24"},{"value":"36","label":"36"}]},
+    {"type":"richtext","id":"bottom_copy","label":"Bottom SEO copy"},
+    {"type":"color","id":"accent","label":"Accent","default":"#526653"}
+  ],
+  "presets":[{"name":"GO Brand collection"}]
+}
+{% endschema %}
