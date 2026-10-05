@@ -7,14 +7,28 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
-/* GO GROCER branded footer. */
 {
   "type": "footer",
   "name": "t:names.footer",
   "sections": {
     "go_footer": {
       "type": "go-footer",
-      "settings": {}
+      "settings": {
+        "logo": "shopify://shop_images/21bb3700-33aa-4363-b4aa-3504a487d9dd.png",
+        "tagline": "PROTEIN MADE EASY.",
+        "text": "<p>High protein groceries for everyday living. Good food, useful staples and easier choices for your fridge.</p>",
+        "shop_menu": "",
+        "brand_menu": "",
+        "info_menu": "",
+        "show_newsletter": true,
+        "newsletter_heading": "GOOD FOOD, STRAIGHT TO YOUR INBOX.",
+        "show_payments": true,
+        "bg": "#171717",
+        "text_color": "#f7f5f0",
+        "accent": "#a9b5a1",
+        "pad_top": 64,
+        "pad_bottom": 48
+      }
     }
   },
   "order": [
