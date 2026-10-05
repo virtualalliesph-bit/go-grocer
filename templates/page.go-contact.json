@@ -11,68 +11,7 @@
   "sections": {
     "main": {
       "type": "go-contact-page",
-      "blocks": {
-        "option_order": {
-          "type": "option",
-          "settings": {
-            "title": "ORDER HELP",
-            "text": "Include your order number so we can help faster.",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "option_product": {
-          "type": "option",
-          "settings": {
-            "title": "PRODUCT QUESTIONS",
-            "text": "Ask about ingredients, storage, preparation or product details.",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "option_delivery": {
-          "type": "option",
-          "settings": {
-            "title": "DELIVERY & RETURNS",
-            "text": "For delivery, returns and support questions, send us the details below.",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "faq_delivery": {
-          "type": "faq",
-          "settings": {
-            "question": "Where can I find delivery information?",
-            "answer": "<p>Delivery options and any available timeframes are shown during checkout or in the relevant store information.</p>"
-          }
-        },
-        "faq_nutrition": {
-          "type": "faq",
-          "settings": {
-            "question": "Can I ask about product nutrition?",
-            "answer": "<p>Yes. Send us the product name and your question and we’ll help with the available product information.</p>"
-          }
-        },
-        "faq_order_issue": {
-          "type": "faq",
-          "settings": {
-            "question": "What should I include for an order issue?",
-            "answer": "<p>Please include your order number and a short description of the issue. If relevant, include the product name so the team can review your message faster.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "option_order",
-        "option_product",
-        "option_delivery",
-        "faq_delivery",
-        "faq_nutrition",
-        "faq_order_issue"
-      ],
-      "settings": {
-        "intro": "<p>Questions about an order, a product or GO GROCER? Send us a message and we’ll point you in the right direction.</p>",
-        "faq_link": ""
-      }
+      "settings": {}
     }
   },
   "order": ["main"]
