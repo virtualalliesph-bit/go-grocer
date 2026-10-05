@@ -11,6 +11,146 @@
   "sections": {
     "main": {
       "type": "go-about-page",
+      "blocks": {
+        "belief_good_food": {
+          "type": "belief",
+          "settings": {
+            "title": "GOOD FOOD",
+            "text": "Quality groceries that belong in an everyday routine."
+          }
+        },
+        "belief_function": {
+          "type": "belief",
+          "settings": {
+            "title": "MORE FUNCTION",
+            "text": "Protein-forward choices that do more without making food complicated."
+          }
+        },
+        "belief_simple": {
+          "type": "belief",
+          "settings": {
+            "title": "LESS COMPLICATION",
+            "text": "Straightforward shopping, clear choices and useful food."
+          }
+        },
+        "belief_access": {
+          "type": "belief",
+          "settings": {
+            "title": "EVERYDAY ACCESS",
+            "text": "Premium enough to feel good, practical enough to keep buying."
+          }
+        },
+        "difference_curated": {
+          "type": "difference",
+          "settings": {
+            "title": "CURATED, NOT CROWDED",
+            "text": "A tighter grocery edit designed to make choosing easier."
+          }
+        },
+        "difference_protein": {
+          "type": "difference",
+          "settings": {
+            "title": "PROTEIN IN THE ROUTINE",
+            "text": "From breakfast to snacks and ready meals, protein fits across the day."
+          }
+        },
+        "difference_real_days": {
+          "type": "difference",
+          "settings": {
+            "title": "MADE FOR REAL DAYS",
+            "text": "Convenient choices for workdays, gym days and everything between."
+          }
+        },
+        "ecosystem_kova": {
+          "type": "ecosystem",
+          "settings": {
+            "title": "KOVA",
+            "text": "Lifestyle and everyday wellness."
+          }
+        },
+        "ecosystem_grocer": {
+          "type": "ecosystem",
+          "settings": {
+            "title": "GO GROCER",
+            "text": "High protein grocery."
+          }
+        },
+        "ecosystem_bar": {
+          "type": "ecosystem",
+          "settings": {
+            "title": "KOVA PROTEIN BAR",
+            "text": "Protein on the go."
+          }
+        },
+        "ecosystem_ready": {
+          "type": "ecosystem",
+          "settings": {
+            "title": "KOVA READY",
+            "text": "Food ready when you are."
+          }
+        },
+        "category_protein": {
+          "type": "category",
+          "settings": {
+            "collection": "protein",
+            "label": "PROTEIN"
+          }
+        },
+        "category_dairy": {
+          "type": "category",
+          "settings": {
+            "collection": "dairy",
+            "label": "DAIRY"
+          }
+        },
+        "category_breakfast": {
+          "type": "category",
+          "settings": {
+            "collection": "breakfast",
+            "label": "BREAKFAST"
+          }
+        },
+        "category_snacks": {
+          "type": "category",
+          "settings": {
+            "collection": "snacks",
+            "label": "SNACKS"
+          }
+        },
+        "category_coffee": {
+          "type": "category",
+          "settings": {
+            "collection": "coffee",
+            "label": "COFFEE"
+          }
+        },
+        "category_ready": {
+          "type": "category",
+          "settings": {
+            "collection": "ready-meals",
+            "label": "READY MEALS"
+          }
+        }
+      },
+      "block_order": [
+        "belief_good_food",
+        "belief_function",
+        "belief_simple",
+        "belief_access",
+        "difference_curated",
+        "difference_protein",
+        "difference_real_days",
+        "ecosystem_kova",
+        "ecosystem_grocer",
+        "ecosystem_bar",
+        "ecosystem_ready",
+        "category_protein",
+        "category_dairy",
+        "category_breakfast",
+        "category_snacks",
+        "category_coffee",
+        "category_ready"
+      ],
       "settings": {
         "eyebrow": "ABOUT GO GROCER",
         "heading": "GOOD FOOD. MADE EASIER.",
