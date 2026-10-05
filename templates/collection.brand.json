@@ -1,0 +1,30 @@
+/*
+ * ------------------------------------------------------------
+ * GO GROCER brand collection template.
+ * Assign this alternate template to collections that represent
+ * individual partner brands.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "go-brand-collection-page",
+      "settings": {
+        "eyebrow": "BRAND SPOTLIGHT",
+        "logo_width": 200,
+        "hero_bg": "#eae2d4",
+        "show_story": true,
+        "story_heading": "WHY WE STOCK IT.",
+        "story_bg": "#f7f5f0",
+        "products_heading": "SHOP THE BRAND",
+        "show_filters": true,
+        "show_vendor": false,
+        "columns": "4",
+        "products_per_page": "24",
+        "bottom_copy": "",
+        "accent": "#526653"
+      }
+    }
+  },
+  "order": ["main"]
+}
