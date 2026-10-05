@@ -3,7 +3,7 @@
     <div class="go-footer__grid">
       <div class="go-footer__brand">
         {% if section.settings.logo != blank %}
-          {{ section.settings.logo | image_url: width: 420 | image_tag: loading: 'lazy', widths: '140,220,320,420', alt: shop.name }}
+          {{ section.settings.logo | image_url: width: 420 | image_tag: loading: 'lazy', widths: '120,160,220,320,420', alt: shop.name, class: 'go-footer__logo' }}
         {% else %}
           <div class="go-footer__wordmark">GO GROCER</div>
         {% endif %}
@@ -68,6 +68,7 @@
 <style>
 #shopify-section-{{ section.id }} .go-footer{background:{{ section.settings.bg }};color:{{ section.settings.text_color }};}
 #shopify-section-{{ section.id }} .go-footer__grid{display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:42px;padding-bottom:44px;}
+#shopify-section-{{ section.id }} .go-footer__logo{display:block;width:{{ section.settings.logo_width }}px;max-width:100%;height:auto;margin-bottom:14px;}
 #shopify-section-{{ section.id }} .go-footer__wordmark{font-size:30px;font-weight:800;letter-spacing:-.04em;margin-bottom:14px;}
 #shopify-section-{{ section.id }} .go-footer__tagline{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;margin-bottom:16px;color:{{ section.settings.accent }};}
 #shopify-section-{{ section.id }} .go-footer__title{font-size:11px;font-weight:700;letter-spacing:.14em;margin-bottom:16px;color:{{ section.settings.accent }};}
@@ -80,13 +81,15 @@
 #shopify-section-{{ section.id }} .go-footer__bottom{padding-top:24px;display:flex;gap:20px;align-items:center;justify-content:space-between;flex-wrap:wrap;font-size:11px;opacity:.82;}
 #shopify-section-{{ section.id }} .go-footer__payments{display:flex;gap:6px;align-items:center;flex-wrap:wrap;} #shopify-section-{{ section.id }} .go-footer__payments svg{height:22px;width:auto;}
 #shopify-section-{{ section.id }} .go-footer__policies{display:flex;gap:14px;flex-wrap:wrap;}
-@media(max-width:749px){#shopify-section-{{ section.id }} .go-footer__grid{grid-template-columns:1fr 1fr;gap:28px 20px;}#shopify-section-{{ section.id }} .go-footer__brand{grid-column:1/-1;}#shopify-section-{{ section.id }} .go-footer__newsletter{align-items:flex-start;flex-direction:column;}#shopify-section-{{ section.id }} .go-footer__form{grid-template-columns:1fr;width:100%;}}
+@media(max-width:749px){#shopify-section-{{ section.id }} .go-footer__grid{grid-template-columns:1fr 1fr;gap:28px 20px;}#shopify-section-{{ section.id }} .go-footer__brand{grid-column:1/-1;}#shopify-section-{{ section.id }} .go-footer__logo{width:{{ section.settings.logo_width_mobile }}px;}#shopify-section-{{ section.id }} .go-footer__newsletter{align-items:flex-start;flex-direction:column;}#shopify-section-{{ section.id }} .go-footer__form{grid-template-columns:1fr;width:100%;}}
 </style>
 {% schema %}
 {
   "name":"GO Footer",
   "settings":[
     {"type":"image_picker","id":"logo","label":"Logo"},
+    {"type":"range","id":"logo_width","label":"Logo width desktop","min":80,"max":300,"step":4,"unit":"px","default":160},
+    {"type":"range","id":"logo_width_mobile","label":"Logo width mobile","min":70,"max":240,"step":4,"unit":"px","default":128},
     {"type":"text","id":"tagline","label":"Tagline","default":"PROTEIN MADE EASY."},
     {"type":"richtext","id":"text","label":"Brand text","default":"<p>High protein groceries for everyday living. Good food, useful staples and easier choices for your fridge.</p>"},
     {"type":"link_list","id":"shop_menu","label":"Shop menu"},
