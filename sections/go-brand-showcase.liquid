@@ -1,0 +1,156 @@
+{% liquid
+  assign brand_count = 0
+  assign logo_count = 0
+  for block in section.blocks
+    if block.type == 'brand'
+      if block.settings.collection != blank or block.settings.name != blank or block.settings.logo != blank
+        assign brand_count = brand_count | plus: 1
+      endif
+    elsif block.type == 'partner_logo'
+      if block.settings.logo != blank
+        assign logo_count = logo_count | plus: 1
+      endif
+    endif
+  endfor
+%}
+
+<section class="go-brand-showcase" style="--brand-bg:{{ section.settings.background }};--brand-card-bg:{{ section.settings.card_background }};--brand-text:{{ section.settings.text_color }};--brand-accent:{{ section.settings.accent }};">
+  {% if brand_count > 0 %}
+    <div class="go-brand-showcase__brands">
+      <div class="go-shell">
+        <div class="go-brand-showcase__header">
+          {% if section.settings.eyebrow != blank %}<div class="go-kicker">{{ section.settings.eyebrow }}</div>{% endif %}
+          {% if section.settings.heading != blank %}<h2 class="go-h2">{{ section.settings.heading }}</h2>{% endif %}
+          {% if section.settings.text != blank %}<div class="go-copy go-rte">{{ section.settings.text }}</div>{% endif %}
+        </div>
+
+        <div class="go-brand-showcase__grid go-brand-showcase__grid--{{ section.settings.columns }}">
+          {% for block in section.blocks %}
+            {% if block.type == 'brand' %}
+              {% liquid
+                assign brand_collection = block.settings.collection
+                assign brand_name = block.settings.name | default: brand_collection.title
+                assign brand_link = block.settings.link | default: brand_collection.url
+                assign brand_image = block.settings.image | default: brand_collection.image
+              %}
+              {% if brand_collection != blank or brand_name != blank or block.settings.logo != blank %}
+                <article class="go-brand-card" {{ block.shopify_attributes }}>
+                  {% if brand_link != blank %}<a class="go-brand-card__link" href="{{ brand_link }}">{% endif %}
+                    <div class="go-brand-card__media">
+                      {% if brand_image != blank %}
+                        {{ brand_image | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '360,540,800,1200', sizes: '(min-width: 990px) 30vw, 50vw', alt: brand_name }}
+                      {% endif %}
+                      {% if block.settings.logo != blank %}
+                        <div class="go-brand-card__logo-wrap">
+                          {{ block.settings.logo | image_url: width: 520 | image_tag: loading: 'lazy', widths: '180,260,360,520', class: 'go-brand-card__logo', alt: brand_name }}
+                        </div>
+                      {% endif %}
+                    </div>
+                    <div class="go-brand-card__copy">
+                      {% if brand_name != blank %}<h3>{{ brand_name }}</h3>{% endif %}
+                      {% if block.settings.text != blank %}<p>{{ block.settings.text }}</p>{% endif %}
+                      {% if brand_link != blank %}<span>SHOP BRAND →</span>{% endif %}
+                    </div>
+                  {% if brand_link != blank %}</a>{% endif %}
+                </article>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if logo_count > 0 %}
+    <div class="go-brand-showcase__partners">
+      <div class="go-shell">
+        <div class="go-brand-showcase__partners-head">
+          {% if section.settings.partner_eyebrow != blank %}<div class="go-kicker">{{ section.settings.partner_eyebrow }}</div>{% endif %}
+          {% if section.settings.partner_heading != blank %}<h3>{{ section.settings.partner_heading }}</h3>{% endif %}
+        </div>
+        <div class="go-brand-showcase__logos">
+          {% for block in section.blocks %}
+            {% if block.type == 'partner_logo' and block.settings.logo != blank %}
+              {% if block.settings.link != blank %}<a href="{{ block.settings.link }}" class="go-brand-showcase__logo-item" {{ block.shopify_attributes }}>{% else %}<div class="go-brand-showcase__logo-item" {{ block.shopify_attributes }}>{% endif %}
+                {{ block.settings.logo | image_url: width: 520 | image_tag: loading: 'lazy', widths: '160,240,360,520', alt: block.settings.name }}
+              {% if block.settings.link != blank %}</a>{% else %}</div>{% endif %}
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</section>
+
+<style>
+#shopify-section-{{ section.id }} .go-brand-showcase{background:var(--brand-bg);color:var(--brand-text);}
+#shopify-section-{{ section.id }} .go-brand-showcase__brands{padding:{{ section.settings.pad_top }}px 0 {{ section.settings.pad_bottom }}px;}
+#shopify-section-{{ section.id }} .go-brand-showcase__header{max-width:720px;margin-bottom:30px;}
+#shopify-section-{{ section.id }} .go-brand-showcase__header .go-copy{margin-top:12px;max-width:58ch;}
+#shopify-section-{{ section.id }} .go-brand-showcase__grid{display:grid;gap:18px;}
+#shopify-section-{{ section.id }} .go-brand-showcase__grid--2{grid-template-columns:repeat(2,minmax(0,1fr));}
+#shopify-section-{{ section.id }} .go-brand-showcase__grid--3{grid-template-columns:repeat(3,minmax(0,1fr));}
+#shopify-section-{{ section.id }} .go-brand-showcase__grid--4{grid-template-columns:repeat(4,minmax(0,1fr));}
+#shopify-section-{{ section.id }} .go-brand-card{background:var(--brand-card-bg);border:1px solid rgba(23,23,23,.12);min-width:0;}
+#shopify-section-{{ section.id }} .go-brand-card__link{display:block;color:inherit;text-decoration:none;}
+#shopify-section-{{ section.id }} .go-brand-card__media{position:relative;aspect-ratio:4/3;overflow:hidden;background:#f7f5f0;}
+#shopify-section-{{ section.id }} .go-brand-card__media>img{width:100%;height:100%;object-fit:cover;display:block;}
+#shopify-section-{{ section.id }} .go-brand-card__logo-wrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:26px;background:rgba(247,245,240,.82);}
+#shopify-section-{{ section.id }} .go-brand-card__logo{display:block;width:auto;max-width:{{ section.settings.card_logo_width }}px;max-height:90px;object-fit:contain;}
+#shopify-section-{{ section.id }} .go-brand-card__copy{padding:18px;}
+#shopify-section-{{ section.id }} .go-brand-card__copy h3{margin:0;font-size:22px;line-height:1.05;letter-spacing:-.03em;}
+#shopify-section-{{ section.id }} .go-brand-card__copy p{margin:8px 0 0;font-size:13px;opacity:.78;}
+#shopify-section-{{ section.id }} .go-brand-card__copy span{display:inline-block;margin-top:14px;font-size:11px;font-weight:800;letter-spacing:.08em;color:var(--brand-accent);}
+#shopify-section-{{ section.id }} .go-brand-showcase__partners{padding:30px 0;border-top:1px solid rgba(23,23,23,.12);}
+#shopify-section-{{ section.id }} .go-brand-showcase__partners-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:22px;}
+#shopify-section-{{ section.id }} .go-brand-showcase__partners-head h3{margin:0;font-size:26px;letter-spacing:-.03em;}
+#shopify-section-{{ section.id }} .go-brand-showcase__logos{display:grid;grid-template-columns:repeat({{ section.settings.logo_columns }},minmax(0,1fr));gap:10px;}
+#shopify-section-{{ section.id }} .go-brand-showcase__logo-item{min-height:110px;border:1px solid rgba(23,23,23,.12);display:flex;align-items:center;justify-content:center;padding:22px;background:var(--brand-card-bg);}
+#shopify-section-{{ section.id }} .go-brand-showcase__logo-item img{display:block;width:auto;max-width:{{ section.settings.partner_logo_width }}px;max-height:64px;object-fit:contain;{% if section.settings.muted_logos %}filter:grayscale(1);opacity:.72;{% endif %}}
+@media(max-width:989px){#shopify-section-{{ section.id }} .go-brand-showcase__grid--3,#shopify-section-{{ section.id }} .go-brand-showcase__grid--4{grid-template-columns:repeat(2,minmax(0,1fr));}#shopify-section-{{ section.id }} .go-brand-showcase__logos{grid-template-columns:repeat(3,minmax(0,1fr));}}
+@media(max-width:749px){#shopify-section-{{ section.id }} .go-brand-showcase__brands{padding:48px 0;}#shopify-section-{{ section.id }} .go-brand-showcase__grid{grid-template-columns:1fr;}#shopify-section-{{ section.id }} .go-brand-showcase__partners-head{align-items:flex-start;flex-direction:column;}#shopify-section-{{ section.id }} .go-brand-showcase__logos{grid-template-columns:repeat(2,minmax(0,1fr));}#shopify-section-{{ section.id }} .go-brand-showcase__logo-item{min-height:92px;padding:16px;}}
+</style>
+
+{% schema %}
+{
+  "name":"GO Brand showcase",
+  "settings":[
+    {"type":"header","content":"Shop by brand"},
+    {"type":"text","id":"eyebrow","label":"Eyebrow","default":"SHOP BY BRAND"},
+    {"type":"text","id":"heading","label":"Heading","default":"BRANDS WE KEEP AROUND."},
+    {"type":"richtext","id":"text","label":"Intro","default":"<p>A growing edit of brands chosen for useful everyday groceries and easier high protein routines.</p>"},
+    {"type":"select","id":"columns","label":"Brand columns","default":"3","options":[{"value":"2","label":"2"},{"value":"3","label":"3"},{"value":"4","label":"4"}]},
+    {"type":"range","id":"card_logo_width","label":"Brand logo max width","min":80,"max":260,"step":10,"unit":"px","default":170},
+    {"type":"header","content":"Partner logos"},
+    {"type":"text","id":"partner_eyebrow","label":"Partner eyebrow","default":"BRANDS & PARTNERS"},
+    {"type":"text","id":"partner_heading","label":"Partner heading","default":"GOOD COMPANY."},
+    {"type":"select","id":"logo_columns","label":"Logo columns","default":"5","options":[{"value":"3","label":"3"},{"value":"4","label":"4"},{"value":"5","label":"5"},{"value":"6","label":"6"}]},
+    {"type":"range","id":"partner_logo_width","label":"Partner logo max width","min":80,"max":240,"step":10,"unit":"px","default":150},
+    {"type":"checkbox","id":"muted_logos","label":"Use muted grayscale logos","default":true},
+    {"type":"header","content":"Style"},
+    {"type":"color","id":"background","label":"Background","default":"#F7F5F0"},
+    {"type":"color","id":"card_background","label":"Card background","default":"#FFFFFF"},
+    {"type":"color","id":"text_color","label":"Text","default":"#171717"},
+    {"type":"color","id":"accent","label":"Accent","default":"#526653"},
+    {"type":"range","id":"pad_top","label":"Top padding","min":32,"max":120,"step":4,"unit":"px","default":68},
+    {"type":"range","id":"pad_bottom","label":"Bottom padding","min":32,"max":120,"step":4,"unit":"px","default":68}
+  ],
+  "blocks":[
+    {"type":"brand","name":"Brand card","settings":[
+      {"type":"collection","id":"collection","label":"Brand collection"},
+      {"type":"text","id":"name","label":"Brand name override"},
+      {"type":"image_picker","id":"logo","label":"Brand logo"},
+      {"type":"image_picker","id":"image","label":"Brand image override"},
+      {"type":"textarea","id":"text","label":"Short description"},
+      {"type":"url","id":"link","label":"Link override"}
+    ]},
+    {"type":"partner_logo","name":"Partner logo","settings":[
+      {"type":"text","id":"name","label":"Brand or partner name"},
+      {"type":"image_picker","id":"logo","label":"Logo"},
+      {"type":"url","id":"link","label":"Optional link"}
+    ]}
+  ],
+  "max_blocks":20,
+  "presets":[{"name":"GO Brand showcase"}]
+}
+{% endschema %}
