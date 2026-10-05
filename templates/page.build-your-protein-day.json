@@ -29,7 +29,7 @@
             "protein": "35G PROTEIN",
             "text": "Build lunch around a familiar protein and simple sides.",
             "image": "shopify://shop_images/81ec80b3-b99e-4a8a-a0b3-2e4a0c3515ce_952c277c-b548-4be4-8976-74ea892ffb5a.png",
-            "collection": ""
+            "collection": "protein"
           }
         },
         "meal_snack": {
@@ -39,7 +39,7 @@
             "protein": "20G PROTEIN",
             "text": "Keep an easy protein option ready for the space between meals.",
             "image": "shopify://shop_images/408281aa-9791-4d90-9824-ccf25c17764d.png",
-            "collection": ""
+            "collection": "snacks"
           }
         },
         "meal_dinner": {
@@ -49,34 +49,34 @@
             "protein": "35G PROTEIN",
             "text": "Finish with a straightforward protein-forward dinner.",
             "image": "shopify://shop_images/bce40d62-3cb8-48be-889e-50c830d7eb88.png",
-            "collection": ""
+            "collection": "ready-meals"
           }
         },
         "shop_breakfast": {
           "type": "shop",
           "settings": {
-            "collection": "",
+            "collection": "breakfast",
             "label": "BREAKFAST"
           }
         },
         "shop_protein": {
           "type": "shop",
           "settings": {
-            "collection": "",
+            "collection": "protein",
             "label": "PROTEIN"
           }
         },
         "shop_snacks": {
           "type": "shop",
           "settings": {
-            "collection": "",
+            "collection": "snacks",
             "label": "SNACKS"
           }
         },
         "shop_ready": {
           "type": "shop",
           "settings": {
-            "collection": "",
+            "collection": "ready-meals",
             "label": "READY MEALS"
           }
         },
